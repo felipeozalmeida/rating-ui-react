@@ -21,5 +21,8 @@ export default tseslint.config([
       globals: globals.browser,
     },
   },
-  eslintConfigPrettier,
+  {
+    files: ['**/*.{ts,tsx,css}'],
+    extends: [eslintConfigPrettier],
+  },
 ])
