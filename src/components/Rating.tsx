@@ -11,7 +11,7 @@ const Rating = () => {
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}
-            className={clsx(styles.star, { [styles['star--active']]: star === rating })}
+            className={clsx(styles.star, { [styles['star--active']]: star <= rating })}
             type="button"
             onClick={() => setRating((prevRating) => (prevRating === star ? 0 : star))}
           >
