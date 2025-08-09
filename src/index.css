@@ -8,7 +8,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100dvh;
+  min-height: calc(-1px + var(--vh) * 100);
   font-family:
     /* Cross-platform generic font family (default user interface font) */
     system-ui,
