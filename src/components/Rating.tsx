@@ -2,6 +2,8 @@ import { useState } from 'react'
 import clsx from 'clsx'
 import styles from './Rating.module.css'
 
+const messages = ['Terrible', 'Poor', 'Fair', 'Good', 'Excellent']
+
 const Rating = () => {
   const [rating, setRating] = useState(0)
   const [hover, setHover] = useState(0)
@@ -24,6 +26,7 @@ const Rating = () => {
           </button>
         ))}
       </div>
+      {rating > 0 && <p className={styles.feedback}>{messages[rating - 1]}</p>}
     </div>
   )
 }
