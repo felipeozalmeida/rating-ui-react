@@ -4,6 +4,7 @@ import styles from './Rating.module.css'
 
 const Rating = () => {
   const [rating, setRating] = useState(0)
+  const [hover, setHover] = useState(0)
   return (
     <div className={styles.rating}>
       <p>Rate Your Experience</p>
@@ -11,8 +12,12 @@ const Rating = () => {
         {[1, 2, 3, 4, 5].map((star) => (
           <button
             key={star}
-            className={clsx(styles.star, { [styles['star--active']]: star <= rating })}
             type="button"
+            className={clsx(styles.star, {
+              [styles['star--active']]: star <= rating || star <= hover,
+            })}
+            onMouseEnter={() => setHover(star)}
+            onMouseLeave={() => setHover(0)}
             onClick={() => setRating((prevRating) => (prevRating === star ? 0 : star))}
           >
             {'\u2605'}
