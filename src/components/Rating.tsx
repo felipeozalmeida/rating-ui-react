@@ -7,7 +7,7 @@ const Rating = () => {
   const [hover, setHover] = useState(0)
   return (
     <div className={styles.rating}>
-      <p>Rate Your Experience</p>
+      <p className={styles.title}>Rate Your Experience</p>
       <div className={styles.stars}>
         {[1, 2, 3, 4, 5].map((star) => (
           <button
