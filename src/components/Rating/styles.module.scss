@@ -17,21 +17,10 @@
   display: flex;
   justify-content: center;
   margin: 1rem -0.25rem;
-}
 
-.star {
-  display: inline-block;
-  padding: 0 0.25rem;
-  font-size: 2rem;
-  line-height: 1;
-  color: #ccc;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-}
-
-.star--active {
-  color: gold;
+  & > * {
+    padding: 0 0.25rem;
+  }
 }
 
 .feedback {

@@ -1,0 +1,13 @@
+.star {
+  display: inline-block;
+  font-size: 2rem;
+  line-height: 1;
+  color: #ccc;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+
+  &--active {
+    color: gold;
+  }
+}
