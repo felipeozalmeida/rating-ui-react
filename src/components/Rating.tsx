@@ -2,14 +2,18 @@ import { useState } from 'react'
 import clsx from 'clsx'
 import styles from './Rating.module.css'
 
-const messages = ['Terrible', 'Poor', 'Fair', 'Good', 'Excellent']
+const defaultTitle = 'Rate Your Experience'
+const defaultMessages = ['Terrible', 'Poor', 'Fair', 'Good', 'Excellent']
 
-const Rating = () => {
+const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const [rating, setRating] = useState(0)
   const [hover, setHover] = useState(0)
+
+  const feedback = messages[rating - 1] || defaultMessages[rating - 1]
+
   return (
     <div className={styles.rating}>
-      <p className={styles.title}>Rate Your Experience</p>
+      <p className={styles.title}>{title || defaultTitle}</p>
       <div className={styles.stars}>
         {[1, 2, 3, 4, 5].map((star) => (
           <button
@@ -26,7 +30,7 @@ const Rating = () => {
           </button>
         ))}
       </div>
-      {rating > 0 && <p className={styles.feedback}>{messages[rating - 1]}</p>}
+      {feedback && <p className={styles.feedback}>{feedback}</p>}
     </div>
   )
 }

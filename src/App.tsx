@@ -16,7 +16,18 @@ const App = () => {
     }
   }, [])
 
-  return <Rating />
+  return (
+    <Rating
+      title="What do you feel about TypeScript?"
+      messages={[
+        "It's the worst piece of undefined 💀",
+        'I enjoy the wild west 🤠',
+        "I mean, it's alright 🤷",
+        'Autocomplete is cool 😊',
+        "Perfect, it's a godsend 😍",
+      ]}
+    />
+  )
 }
 
 export default App
