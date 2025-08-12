@@ -21,8 +21,8 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
             value={value}
             currentValue={currentValue}
             hoveredValue={hoveredValue}
-            onHover={setHoveredValue}
             onClick={setCurrentValue}
+            onHover={setHoveredValue}
           />
         ))}
       </div>
