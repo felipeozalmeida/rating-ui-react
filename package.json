@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22.14.0 <23.0.0",
+    "npm": ">=10.9.2 <11.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --build && eslint . && prettier --check src/ && vite build",
