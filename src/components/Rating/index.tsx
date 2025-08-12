@@ -1,6 +1,9 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
+import clsx from 'clsx'
 import styles from './styles.module.scss'
 import Star from '../Star'
+import Modal from '../Modal'
 
 const defaultTitle = 'Rate Your Experience'
 const defaultMessages = ['Terrible', 'Poor', 'Fair', 'Good', 'Excellent']
@@ -8,6 +11,13 @@ const defaultMessages = ['Terrible', 'Poor', 'Fair', 'Good', 'Excellent']
 const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const [currentValue, setCurrentValue] = useState(0)
   const [hoveredValue, setHoveredValue] = useState(0)
+  const [isShowingModal, setIsShowingModal] = useState(false)
+
+  const handleClose = () => {
+    setCurrentValue(0)
+    setHoveredValue(0)
+    setIsShowingModal(false)
+  }
 
   const feedback = messages[currentValue - 1] || defaultMessages[currentValue - 1]
 
@@ -26,7 +36,26 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
           />
         ))}
       </div>
-      {feedback && <p className={styles.feedback}>{feedback}</p>}
+      {feedback && <p className="text">{feedback}</p>}
+      <button
+        className={clsx('button', styles.button)}
+        type="button"
+        disabled={!currentValue}
+        onClick={() => {
+          setIsShowingModal(true)
+        }}
+      >
+        Submit
+      </button>
+      {isShowingModal &&
+        createPortal(
+          <Modal
+            title="Thank You"
+            content={`You rated us ${currentValue.toString()}!`}
+            onClose={handleClose}
+          />,
+          document.body,
+        )}
     </div>
   )
 }

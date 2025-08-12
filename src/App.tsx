@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
+import './index.scss'
 import Rating from './components/Rating'
-import './index.css'
 
 const App = () => {
   // Using native VH is strange on mobile, so we calculate a new VH unit here

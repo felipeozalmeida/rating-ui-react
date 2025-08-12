@@ -1,4 +1,9 @@
 .rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 1rem;
   max-width: 640px;
   padding: 2.5rem 1.875rem;
   text-align: center;
@@ -16,15 +21,13 @@
 .stars {
   display: flex;
   justify-content: center;
-  margin: 1rem -0.25rem;
+  margin: 0 -0.25rem;
 
   & > * {
     padding: 0 0.25rem;
   }
 }
 
-.feedback {
-  font-size: 1.125rem;
-  font-weight: 400;
-  color: #333;
+.button {
+  margin-top: 0.5rem;
 }
