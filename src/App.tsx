@@ -7,7 +7,8 @@ const App = () => {
   // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
   useEffect(() => {
     const fixVhUnit = () => {
-      window.document.documentElement.style.setProperty('--vh', `${innerHeight * 0.01}px`)
+      const vhInPx = window.innerHeight * 0.01
+      window.document.documentElement.style.setProperty('--vh', `${vhInPx.toString()}px`)
     }
     fixVhUnit()
     addEventListener('resize', fixVhUnit)
