@@ -1,11 +1,11 @@
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import './index.scss'
 import Rating from './components/Rating'
 
 const App = () => {
   // Using native VH is strange on mobile, so we calculate a new VH unit here
   // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fixVhUnit = () => {
       const vhInPx = window.innerHeight * 0.01
       window.document.documentElement.style.setProperty('--vh', `${vhInPx.toString()}px`)
