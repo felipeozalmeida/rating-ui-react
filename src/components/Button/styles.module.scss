@@ -1,0 +1,19 @@
+.button {
+  --background-color: #0080ff;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  background-color: var(--background-color);
+  cursor: pointer;
+  user-select: none;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

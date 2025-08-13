@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
-import clsx from 'clsx'
-import styles from './styles.module.scss'
 import Star from '../Star'
+import Button from '../Button'
 import Modal from '../Modal'
+import styles from './styles.module.scss'
 
 const defaultTitle = 'Rate Your Experience'
 const defaultMessages = ['Terrible', 'Poor', 'Fair', 'Good', 'Excellent']
@@ -37,16 +37,15 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
         ))}
       </div>
       {feedback && <p className="text">{feedback}</p>}
-      <button
-        className={clsx('button', styles.button)}
-        type="button"
+      <Button
+        className={styles.button}
         disabled={!currentValue}
         onClick={() => {
           setIsShowingModal(true)
         }}
       >
         Submit
-      </button>
+      </Button>
       {isShowingModal &&
         createPortal(
           <Modal
