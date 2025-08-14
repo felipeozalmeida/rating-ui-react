@@ -1,4 +1,4 @@
-# Rating UI (React)
+# Rating UI React
 
 A simple rating component that demonstrates essential React concepts and
 patterns. This project showcases how fundamental React features work together
@@ -41,4 +41,10 @@ npm run dev
 
 ## Demo
 
+### Desktop
+
 ![Demo 1024x600](demo_1024x600.gif)
+
+### Mobile
+
+Work in progress.
