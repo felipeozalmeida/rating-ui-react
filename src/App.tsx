@@ -3,8 +3,11 @@ import './index.scss'
 import Rating from './components/Rating'
 
 const App = () => {
-  // Using native VH is strange on mobile, so we calculate a new VH unit here
+  // Using native VH is awkward on mobile, so we calculate a new VH unit here
+  // (yes, we could've used dvh, but it only entered Baseline in December 2022
+  // and on Samsung Internet it became available only in March 2023 💀)
   // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+  // https://caniuse.com/viewport-unit-variants
   useLayoutEffect(() => {
     const fixVhUnit = () => {
       const vhInPx = window.innerHeight * 0.01
