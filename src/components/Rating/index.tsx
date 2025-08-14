@@ -13,6 +13,11 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const [hoveredValue, setHoveredValue] = useState(0)
   const [isShowingModal, setIsShowingModal] = useState(false)
 
+  const handleClick = (value: number) => {
+    setCurrentValue(value)
+    setHoveredValue(0)
+  }
+
   const handleClose = () => {
     setCurrentValue(0)
     setHoveredValue(0)
@@ -31,7 +36,7 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
             value={value}
             currentValue={currentValue}
             hoveredValue={hoveredValue}
-            onClick={setCurrentValue}
+            onClick={handleClick}
             onHover={setHoveredValue}
           />
         ))}
