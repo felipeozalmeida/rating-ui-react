@@ -10,8 +10,8 @@ const App = () => {
   // https://caniuse.com/viewport-unit-variants
   useLayoutEffect(() => {
     const fixVhUnit = () => {
-      const vhInPx = window.innerHeight * 0.01
-      window.document.documentElement.style.setProperty('--vh', `${vhInPx.toString()}px`)
+      const vhInPx = innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vhInPx.toString()}px`)
     }
     fixVhUnit()
     addEventListener('resize', fixVhUnit)
