@@ -1,16 +1,16 @@
 .rating {
   display: flex;
   flex-direction: column;
+  row-gap: 1rem;
   align-items: center;
   justify-content: center;
-  row-gap: 1rem;
   max-width: 640px;
   padding: 2.5rem 1.875rem;
   text-align: center;
+  background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
-  background-color: #fff;
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 10%);
 }
 
 .title {
