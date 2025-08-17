@@ -8,8 +8,9 @@
     "npm": ">=10.9.2 <11.0.0"
   },
   "scripts": {
+    "prepare": "husky",
     "dev": "vite",
-    "build": "npm run type-check && npm run lint:js && npm run lint:scss && npm run format && vite build",
+    "build": "npm run type-check && npm run lint:js && npm run lint:scss && npm run format && npm run build-only",
     "type-check": "tsc --build",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
@@ -19,8 +20,8 @@
     "lint:fix": "npm run lint:js:fix && npm run lint:scss:fix",
     "format": "prettier --check src/",
     "format:fix": "prettier --write src/",
+    "build-only": "vite build",
     "preview": "vite preview",
-    "prepare": "husky",
     "commit": "commit"
   },
   "dependencies": {
