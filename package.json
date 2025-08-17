@@ -55,14 +55,14 @@
     "vite": "7.0.4"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
+    "src/**/*.{ts,tsx}": [
       "eslint --fix",
       "prettier --write"
     ],
-    "*.scss": [
+    "src/**/*.scss": [
       "stylelint --fix strict",
       "prettier --write"
     ],
-    "!(*.{ts,tsx,scss})": "prettier --write --ignore-unknown"
+    "!(src/**/*.{ts,tsx,scss})": "prettier --write --ignore-unknown"
   }
 }
