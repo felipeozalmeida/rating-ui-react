@@ -59,6 +59,10 @@
       "eslint --fix",
       "prettier --write"
     ],
-    "!(*.{ts,tsx})": "prettier --write --ignore-unknown"
+    "*.scss": [
+      "stylelint --fix strict",
+      "prettier --write"
+    ],
+    "!(*.{ts,tsx,scss})": "prettier --write --ignore-unknown"
   }
 }
