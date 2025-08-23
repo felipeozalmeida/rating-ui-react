@@ -4,14 +4,11 @@ import styles from './styles.module.scss'
 
 const defaultTitle = 'Title'
 const defaultContent = 'Content'
+const defaultOnClose = () => {
+  /* noop */
+}
 
-const Modal = ({
-  title = defaultTitle,
-  content = defaultContent,
-  onClose = () => {
-    /* noop */
-  },
-}) => {
+const Modal = ({ title = defaultTitle, content = defaultContent, onClose = defaultOnClose }) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => {
