@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import Button from '../Button'
 import styles from './styles.module.scss'
 
@@ -18,12 +18,42 @@ const Modal = ({
       document.body.style.overflow = ''
     }
   }, [])
+
+  const onCloseRef = useRef(onClose)
+  useEffect(() => {
+    onCloseRef.current = onClose
+  }, [onClose])
+
+  useEffect(() => {
+    const aborter = new AbortController()
+    document.addEventListener(
+      'keydown',
+      (event) => {
+        if (event.key === 'Escape') onCloseRef.current()
+      },
+      { signal: aborter.signal },
+    )
+    return () => {
+      aborter.abort()
+    }
+  }, [])
+
   return (
-    <div className={styles.modal}>
+    <div
+      className={styles.modal}
+      role="dialog"
+      aria-modal
+      aria-labelledby="modalTitle"
+      aria-describedby="modalContent"
+    >
       <div className={styles.content}>
-        <p className={styles.title}>{title || defaultTitle}</p>
-        <p className="text">{content || defaultContent}</p>
-        <Button className={styles.button} onClick={onClose}>
+        <h1 className={styles.title} id="modalTitle">
+          {title || defaultTitle}
+        </h1>
+        <p className="text" id="modalContent">
+          {content || defaultContent}
+        </p>
+        <Button className={styles.button} onClick={onClose} autoFocus>
           Close
         </Button>
       </div>
