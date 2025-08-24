@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useId, useRef } from 'react'
 import Button from '../Button'
 import styles from './styles.module.scss'
 
@@ -9,12 +9,9 @@ const defaultOnClose = () => {
 }
 
 const Modal = ({ title = defaultTitle, content = defaultContent, onClose = defaultOnClose }) => {
-  useEffect(() => {
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [])
+  const id = useId()
+  const titleId = `${id}-modal-title`
+  const contentId = `${id}-modal-content`
 
   const onCloseRef = useRef(onClose)
   useEffect(() => {
@@ -35,19 +32,26 @@ const Modal = ({ title = defaultTitle, content = defaultContent, onClose = defau
     }
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
+
   return (
     <div
       className={styles.modal}
       role="dialog"
       aria-modal
-      aria-labelledby="modalTitle"
-      aria-describedby="modalContent"
+      aria-labelledby={titleId}
+      aria-describedby={contentId}
     >
       <div className={styles.content}>
-        <h1 className={styles.title} id="modalTitle">
+        <h1 className={styles.title} id={titleId}>
           {title || defaultTitle}
         </h1>
-        <p className="text" id="modalContent">
+        <p className="text" id={contentId}>
           {content || defaultContent}
         </p>
         <Button className={styles.button} onClick={onClose} autoFocus>
