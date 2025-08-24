@@ -15,7 +15,7 @@ const maxValue = stars[stars.length - 1]
 const stepValue = 1
 
 const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
-  const ratingRef = useRef<HTMLDivElement>(null)
+  const starsRef = useRef<HTMLDivElement>(null)
 
   const [currentValue, setCurrentValue] = useState(defaultValue)
   const [hoveredValue, setHoveredValue] = useState(defaultValue)
@@ -35,17 +35,13 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const handleKeyDown = (value: number) => {
     setCurrentValue(value)
     setHoveredValue(defaultValue)
-
-    // Focus the newly selected star
-    const starButton = ratingRef.current?.querySelector<HTMLButtonElement>(
-      `button[data-value="${value.toString()}"]`,
-    )
-    starButton?.focus()
+    starsRef.current
+      ?.querySelector<HTMLButtonElement>(`button[data-value="${value.toString()}"]`)
+      ?.focus()
   }
 
   useEffect(() => {
-    if (!isShowingModal)
-      ratingRef.current?.querySelector<HTMLButtonElement>('button[data-value]')?.focus()
+    if (!isShowingModal) starsRef.current?.querySelector<HTMLButtonElement>('button')?.focus()
   }, [isShowingModal])
 
   const feedback = messages[currentValue - 1] || defaultMessages[currentValue - 1]
@@ -53,7 +49,6 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   return (
     <div
       className={styles.rating}
-      ref={ratingRef}
       role="radiogroup"
       aria-labelledby="ratingLabel"
       aria-describedby={feedback ? 'ratingFeedback' : undefined}
@@ -61,7 +56,7 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
       <h1 className={styles.title} id="ratingLabel">
         {title || defaultTitle}
       </h1>
-      <div className={styles.stars}>
+      <div className={styles.stars} ref={starsRef}>
         {stars.map((value) => (
           <Star
             key={value}
