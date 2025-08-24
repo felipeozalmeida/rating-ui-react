@@ -74,7 +74,7 @@ const Star = ({
         }
       }}
     >
-      {'\u2605'}
+      <span aria-hidden>{'\u2605'}</span>
     </button>
   )
 }
