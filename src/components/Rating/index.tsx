@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ComponentRef } from 'react'
 import { createPortal } from 'react-dom'
 import Star from '../Star'
 import Button from '../Button'
@@ -15,11 +15,24 @@ const maxValue = stars[stars.length - 1]
 const stepValue = 1
 
 const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
-  const starsRef = useRef<HTMLDivElement>(null)
+  const starRefs = useRef<Map<number, ComponentRef<typeof Star> | null>>(null)
 
   const [currentValue, setCurrentValue] = useState(defaultValue)
   const [hoveredValue, setHoveredValue] = useState(defaultValue)
   const [isShowingModal, setIsShowingModal] = useState(false)
+
+  const getStarRefs = () => {
+    starRefs.current ??= new Map()
+    return starRefs.current
+  }
+
+  const setStarRef = (instance: ComponentRef<typeof Star> | null, value: number) => {
+    const map = getStarRefs()
+    map.set(value, instance)
+    return () => {
+      map.delete(value)
+    }
+  }
 
   const handleClick = (value: number) => {
     setCurrentValue(value)
@@ -35,13 +48,11 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const handleKeyDown = (value: number) => {
     setCurrentValue(value)
     setHoveredValue(defaultValue)
-    starsRef.current
-      ?.querySelector<HTMLButtonElement>(`button[data-value="${value.toString()}"]`)
-      ?.focus()
+    getStarRefs().get(value)?.focus()
   }
 
   useEffect(() => {
-    if (!isShowingModal) starsRef.current?.querySelector<HTMLButtonElement>('button')?.focus()
+    if (!isShowingModal) getStarRefs().get(minValue)?.focus()
   }, [isShowingModal])
 
   const feedback = messages[currentValue - 1] || defaultMessages[currentValue - 1]
@@ -56,9 +67,10 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
       <h1 className={styles.title} id="ratingLabel">
         {title || defaultTitle}
       </h1>
-      <div className={styles.stars} ref={starsRef}>
+      <div className={styles.stars}>
         {stars.map((value) => (
           <Star
+            ref={(instance) => setStarRef(instance, value)}
             key={value}
             value={value}
             currentValue={currentValue}
