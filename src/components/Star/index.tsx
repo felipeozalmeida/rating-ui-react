@@ -29,7 +29,7 @@ const Star = ({
   onHover: (value: number) => void
   onKeyDown: (value: number) => void
 }) => {
-  const isActive = value <= currentValue || value <= hoveredValue
+  const isActive = hoveredValue !== defaultValue ? value <= hoveredValue : value <= currentValue
   const isChecked = value === currentValue
   const isFocusable = isChecked || (currentValue === defaultValue && value === minValue)
   return (
