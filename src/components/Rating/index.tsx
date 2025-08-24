@@ -8,47 +8,83 @@ import styles from './styles.module.scss'
 const defaultTitle = 'Rate Your Experience'
 const defaultMessages = ['Terrible', 'Poor', 'Fair', 'Good', 'Excellent']
 
+const stars = Array.from({ length: 5 }, (_, i) => i + 1)
+const defaultValue = 0
+const minValue = stars[0]
+const maxValue = stars[stars.length - 1]
+const stepValue = 1
+
 const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const ratingRef = useRef<HTMLDivElement>(null)
 
-  const [currentValue, setCurrentValue] = useState(0)
-  const [hoveredValue, setHoveredValue] = useState(0)
+  const [currentValue, setCurrentValue] = useState(defaultValue)
+  const [hoveredValue, setHoveredValue] = useState(defaultValue)
   const [isShowingModal, setIsShowingModal] = useState(false)
 
   const handleClick = (value: number) => {
     setCurrentValue(value)
-    setHoveredValue(0)
+    setHoveredValue(defaultValue)
   }
 
   const handleClose = () => {
-    setCurrentValue(0)
-    setHoveredValue(0)
+    setCurrentValue(defaultValue)
+    setHoveredValue(defaultValue)
     setIsShowingModal(false)
   }
 
+  const handleKeyDown = (value: number) => {
+    setCurrentValue(value)
+    setHoveredValue(defaultValue)
+
+    // Focus the newly selected star
+    const starButton = ratingRef.current?.querySelector<HTMLButtonElement>(
+      `button[data-value="${value.toString()}"]`,
+    )
+    starButton?.focus()
+  }
+
   useEffect(() => {
-    if (!isShowingModal) ratingRef.current?.querySelector('button')?.focus()
+    if (!isShowingModal)
+      ratingRef.current?.querySelector<HTMLButtonElement>('button[data-value]')?.focus()
   }, [isShowingModal])
 
   const feedback = messages[currentValue - 1] || defaultMessages[currentValue - 1]
 
   return (
-    <div className={styles.rating} ref={ratingRef}>
-      <p className={styles.title}>{title || defaultTitle}</p>
+    <div
+      className={styles.rating}
+      ref={ratingRef}
+      role="radiogroup"
+      aria-labelledby="ratingLabel"
+      aria-describedby={feedback ? 'ratingFeedback' : undefined}
+    >
+      <h1 className={styles.title} id="ratingLabel">
+        {title || defaultTitle}
+      </h1>
       <div className={styles.stars}>
-        {[1, 2, 3, 4, 5].map((value) => (
+        {stars.map((value) => (
           <Star
             key={value}
             value={value}
             currentValue={currentValue}
             hoveredValue={hoveredValue}
+            defaultValue={defaultValue}
+            minValue={minValue}
+            maxValue={maxValue}
+            stepValue={stepValue}
             disabled={isShowingModal}
+            role="radio"
             onClick={handleClick}
             onHover={setHoveredValue}
+            onKeyDown={handleKeyDown}
           />
         ))}
       </div>
-      {feedback && <p className="text">{feedback}</p>}
+      {feedback && (
+        <p className="text" id="ratingFeedback">
+          {feedback}
+        </p>
+      )}
       <Button
         className={styles.button}
         disabled={!currentValue || isShowingModal}

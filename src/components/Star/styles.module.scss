@@ -1,13 +1,24 @@
+$star-color: #ccc;
+$star-active-color: gold;
+
 .star {
+  --star-color: #{$star-color};
+  --star-active-color: #{$star-active-color};
+
   display: inline-block;
   font-size: 2rem;
   line-height: 1;
-  color: #ccc;
+  color: var(--star-color, $star-color);
   cursor: pointer;
   background-color: transparent;
   border: none;
+  border-radius: 0.25rem;
 
   &--active {
-    color: gold;
+    color: var(--star-active-color, $star-active-color);
+  }
+
+  &:focus-visible {
+    outline: 0.125rem solid var(--star-color, $star-color);
   }
 }

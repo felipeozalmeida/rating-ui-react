@@ -1,3 +1,4 @@
+import type { AriaRole } from 'react'
 import clsx from 'clsx'
 import styles from './styles.module.scss'
 
@@ -5,32 +6,72 @@ const Star = ({
   value,
   currentValue,
   hoveredValue,
+  defaultValue,
+  minValue,
+  maxValue,
+  stepValue,
   disabled,
+  role,
   onClick,
   onHover,
+  onKeyDown,
 }: {
   value: number
   currentValue: number
   hoveredValue: number
+  defaultValue: number
+  minValue: number
+  maxValue: number
+  stepValue: number
   disabled: boolean
-  onClick: (star: number) => void
-  onHover: (star: number) => void
+  role: AriaRole
+  onClick: (value: number) => void
+  onHover: (value: number) => void
+  onKeyDown: (value: number) => void
 }) => {
+  const isActive = value <= currentValue || value <= hoveredValue
+  const isChecked = value === currentValue
+  const isFocusable = isChecked || (currentValue === defaultValue && value === minValue)
   return (
     <button
       type="button"
-      className={clsx(styles.star, {
-        [styles['star--active']]: value <= currentValue || value <= hoveredValue,
-      })}
+      className={clsx(styles.star, { [styles['star--active']]: isActive })}
       disabled={disabled}
+      role={role}
+      tabIndex={isFocusable ? 0 : -1}
+      aria-label={`Rate ${value.toString()} out of ${maxValue.toString()} stars`}
+      aria-checked={isChecked}
+      data-value={value}
       onClick={() => {
-        onClick(currentValue === value ? 0 : value)
+        onClick(isChecked ? defaultValue : value)
       }}
       onMouseEnter={() => {
         onHover(value)
       }}
       onMouseLeave={() => {
-        onHover(0)
+        onHover(defaultValue)
+      }}
+      onKeyDown={(event) => {
+        let newValue: number | null = null
+        switch (event.key) {
+          case 'ArrowLeft':
+          case 'ArrowUp':
+            newValue = value === minValue ? maxValue : value - stepValue
+            break
+          case 'ArrowRight':
+          case 'ArrowDown':
+            newValue = value === maxValue ? minValue : value + stepValue
+            break
+          case ' ':
+          case 'Enter':
+            newValue = isChecked ? defaultValue : value
+            break
+        }
+        if (newValue != null) {
+          event.stopPropagation()
+          event.preventDefault()
+          onKeyDown(newValue)
+        }
       }}
     >
       {'\u2605'}
