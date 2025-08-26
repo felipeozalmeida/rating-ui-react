@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type ComponentRef } from 'react'
+import { useId, useRef, useState, type ComponentRef } from 'react'
 import { createPortal } from 'react-dom'
 import Star from '../Star'
 import Button from '../Button'
@@ -16,7 +16,7 @@ const stepValue = 1
 
 const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const id = useId()
-  const labelId = `${id}-rating-label`
+  const titleId = `${id}-rating-title`
   const feedbackId = `${id}-rating-feedback`
 
   const starRefs = useRef<Map<number, ComponentRef<typeof Star> | null>>(null)
@@ -38,26 +38,20 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
     }
   }
 
-  const handleClick = (value: number) => {
+  const setValues = (value: number) => {
     setCurrentValue(value)
     setHoveredValue(defaultValue)
   }
 
   const handleClose = () => {
-    setCurrentValue(defaultValue)
-    setHoveredValue(defaultValue)
+    setValues(defaultValue)
     setIsShowingModal(false)
   }
 
   const handleKeyDown = (value: number) => {
-    setCurrentValue(value)
-    setHoveredValue(defaultValue)
+    setValues(value)
     getStarRefs().get(value)?.focus()
   }
-
-  useEffect(() => {
-    if (!isShowingModal) getStarRefs().get(minValue)?.focus()
-  }, [isShowingModal])
 
   const feedback = messages[currentValue - 1] || defaultMessages[currentValue - 1]
 
@@ -65,10 +59,10 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
     <div
       className={styles.rating}
       role="radiogroup"
-      aria-labelledby={labelId}
+      aria-labelledby={titleId}
       aria-describedby={feedback ? feedbackId : undefined}
     >
-      <h1 className={styles.title} id={labelId}>
+      <h1 className={styles.title} id={titleId}>
         {title || defaultTitle}
       </h1>
       <div className={styles.stars}>
@@ -84,15 +78,14 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
             maxValue={maxValue}
             stepValue={stepValue}
             disabled={isShowingModal}
-            role="radio"
-            onClick={handleClick}
+            onClick={setValues}
             onHover={setHoveredValue}
             onKeyDown={handleKeyDown}
           />
         ))}
       </div>
       {feedback && (
-        <p className="text" id={feedbackId}>
+        <p className="text" id={feedbackId} aria-live="polite" aria-atomic>
           {feedback}
         </p>
       )}

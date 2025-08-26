@@ -1,4 +1,4 @@
-import { forwardRef, type AriaRole } from 'react'
+import { forwardRef } from 'react'
 import clsx from 'clsx'
 import styles from './styles.module.scss'
 
@@ -13,7 +13,6 @@ const Star = forwardRef<
     maxValue: number
     stepValue: number
     disabled: boolean
-    role: AriaRole
     onClick: (value: number) => void
     onHover: (value: number) => void
     onKeyDown: (value: number) => void
@@ -29,7 +28,6 @@ const Star = forwardRef<
       maxValue,
       stepValue,
       disabled,
-      role,
       onClick,
       onHover,
       onKeyDown,
@@ -45,11 +43,12 @@ const Star = forwardRef<
         type="button"
         className={clsx(styles.star, { [styles['star--active']]: isActive })}
         disabled={disabled}
-        role={role}
+        role="radio"
         tabIndex={isFocusable ? 0 : -1}
-        aria-label={`Rate ${value.toString()} out of ${maxValue.toString()} stars`}
+        aria-label={`${value.toString()} star${value > 1 ? 's' : ''}`}
+        aria-setsize={maxValue}
+        aria-posinset={value}
         aria-checked={isChecked}
-        data-value={value}
         onClick={() => {
           onClick(isChecked ? defaultValue : value)
         }}
