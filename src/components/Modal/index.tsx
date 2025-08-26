@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef } from 'react'
+import { useEffect, useId, useRef, type MouseEvent } from 'react'
 import Button from '../Button'
 import styles from './styles.module.scss'
 
@@ -12,6 +12,10 @@ const Modal = ({ title = defaultTitle, content = defaultContent, onClose = defau
   const id = useId()
   const titleId = `${id}-modal-title`
   const contentId = `${id}-modal-content`
+
+  const handleBackdropClick = (event: MouseEvent) => {
+    if (event.target === event.currentTarget) onClose()
+  }
 
   const onCloseRef = useRef(onClose)
   useEffect(() => {
@@ -46,6 +50,7 @@ const Modal = ({ title = defaultTitle, content = defaultContent, onClose = defau
       aria-modal
       aria-labelledby={titleId}
       aria-describedby={contentId}
+      onClick={handleBackdropClick}
     >
       <div className={styles.content}>
         <h1 className={styles.title} id={titleId}>
