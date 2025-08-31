@@ -13,11 +13,12 @@ const Modal = ({ title = defaultTitle, content = defaultContent, onClose = defau
   const titleId = `${id}-modal-title`
   const contentId = `${id}-modal-content`
 
+  const onCloseRef = useRef(onClose)
+
   const handleBackdropClick = (event: MouseEvent) => {
     if (event.target === event.currentTarget) onClose()
   }
 
-  const onCloseRef = useRef(onClose)
   useEffect(() => {
     onCloseRef.current = onClose
   }, [onClose])
