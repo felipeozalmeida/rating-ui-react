@@ -1,4 +1,4 @@
-import { useId, useRef, useState, type ComponentRef } from 'react'
+import { useEffect, useId, useRef, useState, type ComponentRef } from 'react'
 import { createPortal } from 'react-dom'
 import Star from '../Star'
 import Button from '../Button'
@@ -24,6 +24,9 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const [currentValue, setCurrentValue] = useState(defaultValue)
   const [hoveredValue, setHoveredValue] = useState(defaultValue)
   const [isShowingModal, setIsShowingModal] = useState(false)
+  const [shouldRestoreFocus, setShouldRestoreFocus] = useState(false)
+
+  const feedback = messages[currentValue - 1] || defaultMessages[currentValue - 1]
 
   const getStarRefs = () => {
     starRefs.current ??= new Map()
@@ -46,6 +49,7 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const handleClose = () => {
     setValues(defaultValue)
     setIsShowingModal(false)
+    setShouldRestoreFocus(true)
   }
 
   const handleKeyDown = (value: number) => {
@@ -53,7 +57,12 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
     getStarRefs().get(value)?.focus()
   }
 
-  const feedback = messages[currentValue - 1] || defaultMessages[currentValue - 1]
+  useEffect(() => {
+    if (shouldRestoreFocus) {
+      getStarRefs().get(minValue)?.focus()
+      setShouldRestoreFocus(false)
+    }
+  }, [shouldRestoreFocus])
 
   return (
     <div
