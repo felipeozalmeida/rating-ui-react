@@ -54,7 +54,9 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
 
   const handleKeyDown = (value: number) => {
     setValues(value)
-    getStarRefs().get(value)?.focus()
+    getStarRefs()
+      .get(value === defaultValue ? minValue : value)
+      ?.focus()
   }
 
   useEffect(() => {
