@@ -1,5 +1,4 @@
 import { useEffect, useId, useRef, useState, type ComponentRef } from 'react'
-import { createPortal } from 'react-dom'
 import Star from '../Star'
 import Button from '../Button'
 import Modal from '../Modal'
@@ -109,15 +108,13 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
       >
         Submit
       </Button>
-      {isShowingModal &&
-        createPortal(
-          <Modal
-            title="Thank You"
-            content={`You rated us ${currentValue.toString()}!`}
-            onClose={handleClose}
-          />,
-          document.body,
-        )}
+      {isShowingModal && (
+        <Modal
+          title="Thank You"
+          content={`You rated us ${currentValue.toString()}!`}
+          onClose={handleClose}
+        />
+      )}
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, type MouseEvent } from 'react'
+import { createPortal } from 'react-dom'
 import Button from '../Button'
 import styles from './styles.module.scss'
 
@@ -44,7 +45,7 @@ const Modal = ({ title = defaultTitle, content = defaultContent, onClose = defau
     }
   }, [])
 
-  return (
+  return createPortal(
     <div
       className={styles.modal}
       role="dialog"
@@ -64,7 +65,8 @@ const Modal = ({ title = defaultTitle, content = defaultContent, onClose = defau
           Close
         </Button>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
 
