@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState, type ComponentRef } from 'react'
+import clsx from 'clsx'
 import Star from '../Star'
 import Button from '../Button'
 import Modal from '../Modal'
@@ -6,6 +7,7 @@ import styles from './styles.module.scss'
 
 const defaultTitle = 'Rate Your Experience'
 const defaultMessages = ['Terrible', 'Poor', 'Fair', 'Good', 'Excellent']
+const defaultFeedback = 'Select a rating'
 
 const stars = Array.from({ length: 5 }, (_, i) => i + 1)
 const defaultValue = 0
@@ -25,7 +27,8 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const [isShowingModal, setIsShowingModal] = useState(false)
   const [shouldRestoreFocus, setShouldRestoreFocus] = useState(false)
 
-  const feedback = messages[currentValue - 1] || defaultMessages[currentValue - 1]
+  const feedback =
+    messages[currentValue - 1] || defaultMessages[currentValue - 1] || defaultFeedback
 
   const getStarRefs = () => {
     starRefs.current ??= new Map()
@@ -70,7 +73,7 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
       className={styles.rating}
       role="radiogroup"
       aria-labelledby={titleId}
-      aria-describedby={feedback ? feedbackId : undefined}
+      aria-describedby={feedbackId}
     >
       <h1 className={styles.title} id={titleId}>
         {title || defaultTitle}
@@ -94,11 +97,14 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
           />
         ))}
       </div>
-      {feedback && (
-        <p className="text" id={feedbackId} aria-live="polite" aria-atomic>
-          {feedback}
-        </p>
-      )}
+      <p
+        className={clsx('text', { 'sr-only': feedback === defaultFeedback })}
+        id={feedbackId}
+        aria-live="polite"
+        aria-atomic
+      >
+        {feedback}
+      </p>
       <Button
         className={styles.button}
         disabled={!currentValue || isShowingModal}
