@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, type MouseEvent } from 'react'
 import { createPortal } from 'react-dom'
+import { FocusTrap } from 'focus-trap-react'
 import Button from '../Button'
 import styles from './styles.module.scss'
 
@@ -46,26 +47,28 @@ const Modal = ({ title = defaultTitle, content = defaultContent, onClose = defau
   }, [])
 
   return createPortal(
-    <div
-      className={styles.modal}
-      role="dialog"
-      aria-modal
-      aria-labelledby={titleId}
-      aria-describedby={contentId}
-      onClick={handleBackdropClick}
-    >
-      <div className={styles.content}>
-        <h1 className={styles.title} id={titleId}>
-          {title || defaultTitle}
-        </h1>
-        <p className="text" id={contentId}>
-          {content || defaultContent}
-        </p>
-        <Button className={styles.button} onClick={onClose} autoFocus>
-          Close
-        </Button>
+    <FocusTrap>
+      <div
+        className={styles.modal}
+        role="dialog"
+        aria-modal
+        aria-labelledby={titleId}
+        aria-describedby={contentId}
+        onClick={handleBackdropClick}
+      >
+        <div className={styles.content}>
+          <h1 className={styles.title} id={titleId}>
+            {title || defaultTitle}
+          </h1>
+          <p className="text" id={contentId}>
+            {content || defaultContent}
+          </p>
+          <Button className={styles.button} onClick={onClose} autoFocus>
+            Close
+          </Button>
+        </div>
       </div>
-    </div>,
+    </FocusTrap>,
     document.body,
   )
 }
