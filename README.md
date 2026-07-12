@@ -4,6 +4,8 @@ A simple rating component that demonstrates essential React concepts and
 patterns. This project showcases how fundamental React features work together
 to build interactive user interfaces.
 
+**Live demo:** https://felipeozalmeida.github.io/rating-ui-react/
+
 ## What You'll Find Here
 
 This rating UI implementation covers these key React concepts:
