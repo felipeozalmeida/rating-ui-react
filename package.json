@@ -67,5 +67,10 @@
       "prettier --write"
     ],
     "!(src/**/*.{ts,tsx,scss})": "prettier --write --ignore-unknown"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "@parcel/watcher@2.5.1": true,
+    "fsevents@2.3.3": true
   }
 }
