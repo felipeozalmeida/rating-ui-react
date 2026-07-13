@@ -27,8 +27,8 @@ This rating UI implementation covers these key React concepts:
 First, make sure you have a suitable Node.js version installed. For reference,
 this project was developed with:
 
-1. node v22.14.0
-2. npm v10.9.2
+1. node v24.18.0
+2. npm v11.16.0
 
 Install dependencies with your favorite package manager. Assuming it's npm:
 
