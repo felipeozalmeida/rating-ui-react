@@ -21,11 +21,11 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const feedbackId = `${id}-rating-feedback`
 
   const starRefs = useRef<Map<number, ComponentRef<typeof Star> | null>>(null)
+  const shouldRestoreFocusRef = useRef(false)
 
   const [currentValue, setCurrentValue] = useState(defaultValue)
   const [hoveredValue, setHoveredValue] = useState(defaultValue)
   const [isShowingModal, setIsShowingModal] = useState(false)
-  const [shouldRestoreFocus, setShouldRestoreFocus] = useState(false)
 
   const feedback =
     messages[currentValue - 1] || defaultMessages[currentValue - 1] || defaultFeedback
@@ -51,7 +51,7 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const handleClose = () => {
     setValues(defaultValue)
     setIsShowingModal(false)
-    setShouldRestoreFocus(true)
+    shouldRestoreFocusRef.current = true
   }
 
   const handleKeyDown = (value: number) => {
@@ -62,11 +62,11 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   }
 
   useEffect(() => {
-    if (shouldRestoreFocus) {
+    if (shouldRestoreFocusRef.current) {
       getStarRefs().get(minValue)?.focus()
-      setShouldRestoreFocus(false)
+      shouldRestoreFocusRef.current = false
     }
-  }, [shouldRestoreFocus])
+  }, [isShowingModal])
 
   return (
     <div
