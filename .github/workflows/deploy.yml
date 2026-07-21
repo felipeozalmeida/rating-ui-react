@@ -1,4 +1,4 @@
-# Simple workflow for deploying static content to GitHub Pages
+# Workflow for building, testing, and deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
 on:
@@ -25,11 +25,7 @@ env:
   HUSKY: 0
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,18 +39,50 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v6
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          # Upload dist folder
+          path: './dist'
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: './dist'
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Download dist artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: './dist'
       - name: Run Lighthouse CI
         run: npm run lhci
         continue-on-error: true
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-      - name: Setup Pages
-        uses: actions/configure-pages@v6
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
-        with:
-          # Upload dist folder
-          path: './dist'
+
+  release:
+    needs: [build, test]
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
