@@ -46,6 +46,8 @@ jobs:
       - name: Run Lighthouse CI
         run: npm run lhci
         continue-on-error: true
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
       - name: Setup Pages
         uses: actions/configure-pages@v6
       - name: Upload artifact
