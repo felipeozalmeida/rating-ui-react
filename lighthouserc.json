@@ -1,0 +1,13 @@
+{
+  "ci": {
+    "collect": {
+      "startServerCommand": "npm run preview",
+      "url": ["http://localhost:4173/rating-ui-react/"],
+      "startServerReadyPattern": "Local:",
+      "startServerReadyTimeout": 30000
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

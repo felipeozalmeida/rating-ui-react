@@ -22,6 +22,7 @@
     "format:fix": "prettier --write src/",
     "build-only": "vite build",
     "preview": "vite preview",
+    "lhci": "lhci autorun",
     "commit": "commit"
   },
   "dependencies": {
@@ -35,6 +36,7 @@
     "@commitlint/config-conventional": "21.2.0",
     "@commitlint/prompt-cli": "21.2.0",
     "@eslint/js": "10.0.1",
+    "@lhci/cli": "0.15.1",
     "@types/node": "26.1.1",
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
