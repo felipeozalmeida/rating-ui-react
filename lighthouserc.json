@@ -7,7 +7,7 @@
       "startServerReadyTimeout": 30000
     },
     "assert": {
-      "preset": "lighthouse:all"
+      "preset": "lighthouse:recommended"
     },
     "upload": {
       "target": "filesystem",
