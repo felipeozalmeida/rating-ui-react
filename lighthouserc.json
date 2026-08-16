@@ -6,6 +6,9 @@
       "startServerReadyPattern": "Local",
       "startServerReadyTimeout": 30000
     },
+    "assert": {
+      "preset": "lighthouse:all"
+    },
     "upload": {
       "target": "filesystem",
       "outputDir": "./.lighthouseci-reports",
