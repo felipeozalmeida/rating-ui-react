@@ -82,6 +82,7 @@ jobs:
           name: lhci
           path: './.lighthouseci-reports'
           retention-days: 7
+          include-hidden-files: true
 
   release:
     needs: [build, test]
