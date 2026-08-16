@@ -75,6 +75,12 @@ jobs:
         continue-on-error: true
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+      - name: Upload LHCI artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: lhci
+          path: './.lighthouseci-reports'
+          retention-days: 7
 
   release:
     needs: [build, test]
