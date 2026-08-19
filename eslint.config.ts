@@ -22,11 +22,7 @@ export default defineConfig([
   {
     name: 'app/browser',
     files: ['src/**/*.{ts,tsx}'],
-    extends: [
-      ...typescript,
-      reactHooks.configs.flat['recommended-latest'],
-      reactRefresh.configs.vite,
-    ],
+    extends: [...typescript, reactHooks.configs.flat.recommended, reactRefresh.configs.vite],
     languageOptions: {
       globals: globals.browser,
       parserOptions,
