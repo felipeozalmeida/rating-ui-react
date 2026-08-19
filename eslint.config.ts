@@ -6,24 +6,39 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import skipFormatting from 'eslint-config-prettier/flat'
 
+const typescript = [
+  js.configs.recommended,
+  tseslint.configs.strictTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
+]
+
+const parserOptions = {
+  projectService: true,
+  tsconfigRootDir: import.meta.dirname,
+}
+
 export default defineConfig([
   globalIgnores(['dist']),
   {
-    files: ['**/*.{ts,tsx}'],
+    name: 'app/browser',
+    files: ['src/**/*.{ts,tsx}'],
     extends: [
-      js.configs.recommended,
-      tseslint.configs.strictTypeChecked,
-      tseslint.configs.stylisticTypeChecked,
+      ...typescript,
       reactHooks.configs.flat['recommended-latest'],
       reactRefresh.configs.vite,
     ],
     languageOptions: {
-      ecmaVersion: 2020,
       globals: globals.browser,
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
+      parserOptions,
+    },
+  },
+  {
+    name: 'config-files/node',
+    files: ['*.ts'],
+    extends: typescript,
+    languageOptions: {
+      globals: globals.node,
+      parserOptions,
     },
   },
   skipFormatting,
