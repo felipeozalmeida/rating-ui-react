@@ -60,7 +60,7 @@
     "vite": "8.1.4"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
+    "{src/**/*.{ts,tsx},*.ts}": [
       "eslint --fix",
       "prettier --write"
     ],
@@ -68,7 +68,7 @@
       "stylelint --fix strict",
       "prettier --write"
     ],
-    "!(src/**/*.{ts,tsx,scss})": "prettier --write --ignore-unknown"
+    "!({src/**/*.{ts,tsx,scss},*.ts})": "prettier --write --ignore-unknown"
   },
   "allowScripts": {
     "esbuild@0.28.1": true,
