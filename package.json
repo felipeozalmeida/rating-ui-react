@@ -14,8 +14,8 @@
     "type-check": "tsc --build",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
-    "lint:scss": "stylelint \"src/**/*.scss\" --cache",
-    "lint:scss:fix": "stylelint \"src/**/*.scss\" --fix strict --cache",
+    "lint:scss": "stylelint \"src/**/*.scss\"",
+    "lint:scss:fix": "stylelint \"src/**/*.scss\" --fix strict",
     "lint": "run-p --aggregate-output lint:js lint:scss",
     "lint:fix": "run-p --aggregate-output lint:js:fix lint:scss:fix",
     "format": "prettier --check .github/ .husky/ src/ \"*.{html,md,json,ts}\"",
@@ -65,7 +65,7 @@
       "prettier --write"
     ],
     "src/**/*.scss": [
-      "stylelint --fix strict --cache",
+      "stylelint --fix strict",
       "prettier --write"
     ],
     "!(src/**/*.{ts,tsx,scss})": "prettier --write --ignore-unknown"
