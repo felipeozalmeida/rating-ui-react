@@ -18,7 +18,7 @@ const parserOptions = {
 }
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['**/*.js', '**/*.mjs', '**/*.cjs']),
   {
     name: 'app/browser',
     files: ['src/**/*.{ts,tsx}'],
