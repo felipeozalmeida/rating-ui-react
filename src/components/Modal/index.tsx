@@ -49,21 +49,21 @@ const Modal = ({ title = defaultTitle, content = defaultContent, onClose = defau
   return createPortal(
     <FocusTrap>
       <div
-        className={styles.modal}
+        className={styles['modal']}
         role="dialog"
         aria-modal
         aria-labelledby={titleId}
         aria-describedby={contentId}
         onClick={handleBackdropClick}
       >
-        <div className={styles.content}>
-          <h1 className={styles.title} id={titleId}>
+        <div className={styles['content']}>
+          <h1 className={styles['title']} id={titleId}>
             {title || defaultTitle}
           </h1>
           <p className="text" id={contentId}>
             {content || defaultContent}
           </p>
-          <Button className={styles.button} onClick={onClose} autoFocus>
+          <Button className={styles['button']} onClick={onClose} autoFocus>
             Close
           </Button>
         </div>

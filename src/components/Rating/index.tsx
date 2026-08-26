@@ -9,11 +9,22 @@ const defaultTitle = 'Rate Your Experience'
 const defaultMessages = ['Terrible', 'Poor', 'Fair', 'Good', 'Excellent']
 const defaultFeedback = 'Select a rating'
 
-const stars = Array.from({ length: 5 }, (_, i) => i + 1)
+const stars = [1, 2, 3, 4, 5]
 const defaultValue = 0
-const minValue = stars[0]
-const maxValue = stars[stars.length - 1]
+const minValue = 1
+const maxValue = 5
 const stepValue = 1
+
+const getFeedback = (messages: string[], currentValue: number) => {
+  const message = messages[currentValue - 1]
+  const defaultMessage = defaultMessages[currentValue - 1]
+
+  let feedback = defaultFeedback
+  if (message) feedback = message
+  else if (defaultMessage) feedback = defaultMessage
+
+  return feedback
+}
 
 const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const id = useId()
@@ -27,8 +38,7 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
   const [hoveredValue, setHoveredValue] = useState(defaultValue)
   const [isShowingModal, setIsShowingModal] = useState(false)
 
-  const feedback =
-    messages[currentValue - 1] || defaultMessages[currentValue - 1] || defaultFeedback
+  const feedback = getFeedback(messages, currentValue)
 
   const getStarRefs = () => {
     starRefs.current ??= new Map()
@@ -70,15 +80,15 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
 
   return (
     <div
-      className={styles.rating}
+      className={styles['rating']}
       role="radiogroup"
       aria-labelledby={titleId}
       aria-describedby={feedbackId}
     >
-      <h1 className={styles.title} id={titleId}>
+      <h1 className={styles['title']} id={titleId}>
         {title || defaultTitle}
       </h1>
-      <div className={styles.stars}>
+      <div className={styles['stars']}>
         {stars.map((value) => (
           <Star
             ref={(instance) => setStarRef(instance, value)}
@@ -106,7 +116,7 @@ const Rating = ({ title = defaultTitle, messages = defaultMessages }) => {
         {feedback}
       </p>
       <Button
-        className={styles.button}
+        className={styles['button']}
         disabled={!currentValue || isShowingModal}
         onClick={() => {
           setIsShowingModal(true)

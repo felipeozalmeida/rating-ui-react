@@ -41,7 +41,7 @@ const Star = forwardRef<
       <button
         ref={ref}
         type="button"
-        className={clsx(styles.star, { [styles['star--active']]: isActive })}
+        className={clsx(styles['star'], isActive && styles['star--active'])}
         disabled={disabled}
         role="radio"
         tabIndex={isFocusable ? 0 : -1}
