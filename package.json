@@ -22,7 +22,10 @@
     "format:fix": "prettier --write .github/ .husky/ src/ \"*.{html,md,json,ts}\"",
     "build-only": "vite build",
     "preview": "vite preview",
-    "lhci": "lhci autorun",
+    "test": "npm run test:lhci",
+    "test:lhci": "run-s test:lhci:mobile test:lhci:desktop",
+    "test:lhci:mobile": "lhci autorun --config lighthouserc.mobile.cjs",
+    "test:lhci:desktop": "lhci autorun --config lighthouserc.desktop.cjs",
     "commit": "commit"
   },
   "dependencies": {

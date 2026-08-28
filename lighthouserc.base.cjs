@@ -1,10 +1,22 @@
-module.exports = {
+/** @import { CliFlags } from "lighthouse" */
+
+/**
+ * @typedef {object} ConfigParameters
+ * @property {"mobile" | "desktop"} [subdir]
+ * @property {CliFlags} [settings]
+ */
+
+/**
+ * @param {ConfigParameters} configParameters
+ */
+const getConfig = ({ subdir = 'mobile', settings = {} } = {}) => ({
   ci: {
     collect: {
       startServerCommand: 'npm run preview',
-      url: ['http://localhost:4173/rating-ui-react/'],
       startServerReadyPattern: 'Local',
       startServerReadyTimeout: 30000,
+      url: ['http://localhost:4173/rating-ui-react/'],
+      settings,
     },
     assert: {
       includePassedAssertions: true,
@@ -17,8 +29,10 @@ module.exports = {
     },
     upload: {
       target: 'filesystem',
-      outputDir: './.lighthouseci-reports',
+      outputDir: `./.lighthouseci-reports/${subdir}`,
       reportFilenamePattern: '_%%PATHNAME%%.report.%%EXTENSION%%',
     },
   },
-}
+})
+
+module.exports = getConfig
