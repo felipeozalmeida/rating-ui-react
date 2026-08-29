@@ -3,7 +3,7 @@
 /**
  * @typedef {object} ConfigParameters
  * @property {"mobile" | "desktop"} [subdir]
- * @property {CliFlags} [settings]
+ * @property {Partial<CliFlags>} [settings]
  */
 
 /**

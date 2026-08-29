@@ -2,7 +2,9 @@
   "extends": ["@tsconfig/bases/strictest", "@tsconfig/bases/node24", "@tsconfig/bases/node-ts"],
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "noEmit": true
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": true
   },
-  "include": ["*.ts"]
+  "include": ["*.ts", "*.cjs"]
 }
