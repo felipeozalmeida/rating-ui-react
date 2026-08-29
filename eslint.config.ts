@@ -18,7 +18,7 @@ const parserOptions = {
 }
 
 export default defineConfig([
-  globalIgnores(['**/*.js', '**/*.mjs', '**/*.cjs']),
+  globalIgnores(['**/*.js', '**/*.mjs', '*/**/*.cjs']),
   {
     name: 'app/browser',
     files: ['src/**/*.{ts,tsx}'],
@@ -30,7 +30,7 @@ export default defineConfig([
   },
   {
     name: 'config-files/node',
-    files: ['*.ts'],
+    files: ['*.ts', '*.cjs'],
     extends: typescript,
     languageOptions: {
       globals: globals.node,
