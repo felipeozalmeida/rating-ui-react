@@ -14,7 +14,7 @@ export default mergeConfig(
           test: {
             name: 'src',
             environment: 'jsdom',
-            include: ['src/**/__tests__/**/*.spec.{ts,tsx}'],
+            include: ['src/**/*.spec.{ts,tsx}'],
           },
         },
       ],

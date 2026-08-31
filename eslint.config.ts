@@ -49,7 +49,7 @@ export default defineConfig([
   },
   {
     name: 'app/test',
-    files: ['src/**/__tests__/**/*.spec.{ts,tsx}'],
+    files: ['src/**/*.spec.{ts,tsx}'],
     extends: [vitest.configs.recommended],
   },
   skipFormatting,
