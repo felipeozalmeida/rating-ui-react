@@ -18,8 +18,8 @@
     "lint:scss:fix": "stylelint \"src/**/*.scss\" --fix strict",
     "lint": "run-p --aggregate-output lint:js lint:scss",
     "lint:fix": "run-p --aggregate-output lint:js:fix lint:scss:fix",
-    "format": "prettier --check .github/ .husky/ src/ \"*.{html,md,json,ts}\"",
-    "format:fix": "prettier --write .github/ .husky/ src/ \"*.{html,md,json,ts}\"",
+    "format": "prettier --check .github/ .husky/ src/ \"*.{html,md,json,ts,cjs}\"",
+    "format:fix": "prettier --write .github/ .husky/ src/ \"*.{html,md,json,ts,cjs}\"",
     "build-only": "vite build",
     "preview": "vite preview",
     "test": "run-s test:unit test:lhci",
@@ -68,7 +68,7 @@
     "vitest": "4.1.11"
   },
   "lint-staged": {
-    "{src/**/*.{ts,tsx},*.ts}": [
+    "{src/**/*.{ts,tsx},*.{ts,cjs}}": [
       "eslint --fix",
       "prettier --write"
     ],
@@ -76,7 +76,7 @@
       "stylelint --fix strict",
       "prettier --write"
     ],
-    "!({src/**/*.{ts,tsx,scss},*.ts})": "prettier --write --ignore-unknown"
+    "!({src/**/*.{ts,tsx,scss},*.{ts,cjs}})": "prettier --write --ignore-unknown"
   },
   "allowScripts": {
     "esbuild@0.28.1": true,

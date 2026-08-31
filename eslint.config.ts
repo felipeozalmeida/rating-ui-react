@@ -30,7 +30,7 @@ export default defineConfig([
   },
   {
     name: 'config-files/node',
-    files: ['*.ts', '*.cjs'],
+    files: ['*.{ts,cjs}'],
     extends: typescript,
     languageOptions: {
       globals: globals.node,
