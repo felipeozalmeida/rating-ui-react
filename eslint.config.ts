@@ -37,5 +37,14 @@ export default defineConfig([
       parserOptions,
     },
   },
+  {
+    name: 'config-files/node/cjs',
+    files: ['*.cjs'],
+    rules: {
+      // Make tseslint play nice with cjs files
+      // Ref: https://github.com/typescript-eslint/typescript-eslint/issues/9730
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
   skipFormatting,
 ])
