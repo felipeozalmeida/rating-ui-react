@@ -1,4 +1,9 @@
 {
   "extends": ["@tsconfig/bases/strictest", "@tsconfig/bases/vite-react"],
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
   "include": ["src"]
 }
