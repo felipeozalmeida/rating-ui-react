@@ -4,6 +4,7 @@ import js from '@eslint/js'
 import tseslint from 'typescript-eslint'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
+import vitest from '@vitest/eslint-plugin'
 import skipFormatting from 'eslint-config-prettier/flat'
 
 const typescript = [
@@ -45,6 +46,11 @@ export default defineConfig([
       // Ref: https://github.com/typescript-eslint/typescript-eslint/issues/9730
       '@typescript-eslint/no-require-imports': 'off',
     },
+  },
+  {
+    name: 'app/test',
+    files: ['src/**/__tests__/**/*.spec.{ts,tsx}'],
+    extends: [vitest.configs.recommended],
   },
   skipFormatting,
 ])
