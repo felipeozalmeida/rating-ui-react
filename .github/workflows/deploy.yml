@@ -71,8 +71,8 @@ jobs:
         with:
           name: dist
           path: './dist'
-      - name: Run Lighthouse CI
-        run: npm run test:lhci
+      - name: Run tests
+        run: npm test
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
       - name: Upload LHCI artifacts
