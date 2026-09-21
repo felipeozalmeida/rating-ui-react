@@ -6,8 +6,14 @@ import { expect, test } from 'vitest'
 // `types` alone would not trip it.
 export type _TypesGuard = [typeof jsdom, typeof process, ImportMetaEnv]
 
-// Runtime guard: fails if `environment` regresses away from jsdom.
+// Fails if `environment` regresses to node.
 test('the DOM is live', () => {
   document.body.innerHTML = '<p>hi</p>'
   expect(document.body.textContent).toBe('hi')
+})
+
+// Fails if `environment` becomes a DOM that is not jsdom. The test above
+// cannot catch that, and the vitest/jsdom types assume this global exists.
+test('the DOM is jsdom specifically', () => {
+  expect(typeof jsdom.window).toBe('object')
 })
