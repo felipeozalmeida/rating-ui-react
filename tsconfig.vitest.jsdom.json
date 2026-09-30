@@ -5,7 +5,7 @@
     "types": ["vitest/jsdom", "vite/client", "node"]
   },
   "include": [
-    "src/vitest.jsdom.setup.ts",
+    "src/setup-jsdom-tests.ts",
     "src/**/*.test.ts",
     "src/**/*.test.tsx",
     "src/**/*.spec.ts",
