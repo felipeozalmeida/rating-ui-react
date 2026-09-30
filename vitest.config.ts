@@ -14,6 +14,7 @@ export default mergeConfig(
           test: {
             name: 'jsdom',
             environment: 'jsdom',
+            setupFiles: ['src/vitest.jsdom.setup.ts'],
             include: ['src/**/*.{test,spec}.{ts,tsx}'],
           },
         },
