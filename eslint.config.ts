@@ -51,7 +51,7 @@ export default defineConfig([
   },
   {
     name: 'vitest',
-    files: ['src/vitest.jsdom.setup.ts', 'src/**/*.{test,spec}.{ts,tsx}'],
+    files: ['src/setup-jsdom-tests.ts', 'src/**/*.{test,spec}.{ts,tsx}'],
     extends: [vitest.configs.recommended],
     languageOptions: {
       globals: { ...globals.node, ...globals.browser },
