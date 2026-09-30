@@ -2,7 +2,7 @@
   "extends": "./tsconfig.app.json",
   "files": [],
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vitest.node.tsbuildinfo",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.vitest.node.tsbuildinfo",
     // Drops DOM so an unqualified spec cannot reach for `document` — that is a
     // compile error telling you to qualify the filename. `lib` replaces rather
     // than merges, so this restates the ES level from tsconfig.app.json and

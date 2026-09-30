@@ -8,10 +8,10 @@
       "path": "./tsconfig.app.json"
     },
     {
-      "path": "./tsconfig.vitest.node.json"
+      "path": "./tsconfig.app.vitest.node.json"
     },
     {
-      "path": "./tsconfig.vitest.jsdom.json"
+      "path": "./tsconfig.app.vitest.jsdom.json"
     }
   ]
 }

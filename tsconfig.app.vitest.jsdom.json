@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vitest.jsdom.tsbuildinfo",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.vitest.jsdom.tsbuildinfo",
     "types": ["vitest/jsdom", "vite/client", "node"]
   },
   "include": [
