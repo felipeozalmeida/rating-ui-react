@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.app.json",
+  // tsconfig.app.json excludes every spec from the app program; the Vitest
+  // programs exist to put them back, so each one starts from a clean slate
+  // and narrows via its own `include`.
+  "exclude": []
+}
