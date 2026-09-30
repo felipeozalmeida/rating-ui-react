@@ -52,7 +52,7 @@ export default defineConfig([
     },
   },
   {
-    name: 'vitest/node',
+    name: 'app/vitest/node',
     files: ['src/**/*.{test,spec}.ts'],
     ignores: ['src/**/*.jsdom.{test,spec}.ts'],
     extends: [...typescript, vitest.configs.recommended],
@@ -66,7 +66,7 @@ export default defineConfig([
     },
   },
   {
-    name: 'vitest/jsdom',
+    name: 'app/vitest/jsdom',
     files: ['src/setup-jsdom-tests.ts', 'src/**/*.jsdom.{test,spec}.{ts,tsx}'],
     extends: [...typescript, vitest.configs.recommended],
     languageOptions: {
