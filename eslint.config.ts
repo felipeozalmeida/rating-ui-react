@@ -13,6 +13,8 @@ const typescript = [
   tseslint.configs.stylisticTypeChecked,
 ]
 
+const react = [reactHooks.configs.flat.recommended, reactRefresh.configs.vite]
+
 const parserOptions = {
   projectService: true,
   tsconfigRootDir: import.meta.dirname,
@@ -21,16 +23,16 @@ const parserOptions = {
 export default defineConfig([
   globalIgnores(['**/*.js', '**/*.mjs', '*/**/*.cjs']),
   {
-    name: 'app/browser',
+    name: 'app',
     files: ['src/**/*.{ts,tsx}'],
-    extends: [...typescript, reactHooks.configs.flat.recommended, reactRefresh.configs.vite],
+    extends: [...typescript, ...react],
     languageOptions: {
       globals: globals.browser,
       parserOptions,
     },
   },
   {
-    name: 'config-files/node',
+    name: 'node',
     files: ['*.{ts,cjs}'],
     extends: typescript,
     languageOptions: {
@@ -39,7 +41,7 @@ export default defineConfig([
     },
   },
   {
-    name: 'config-files/node/cjs',
+    name: 'node/cjs',
     files: ['*.cjs'],
     rules: {
       // Make tseslint play nice with cjs files
