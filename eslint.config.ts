@@ -48,9 +48,12 @@ export default defineConfig([
     },
   },
   {
-    name: 'app/test',
-    files: ['src/**/*.{test,spec}.{ts,tsx}'],
+    name: 'vitest',
+    files: ['src/vitest.jsdom.setup.ts', 'src/**/*.{test,spec}.{ts,tsx}'],
     extends: [vitest.configs.recommended],
+    languageOptions: {
+      globals: { ...globals.node, ...globals.browser },
+    },
   },
   skipFormatting,
 ])
