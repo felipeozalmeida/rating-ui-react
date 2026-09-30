@@ -6,10 +6,10 @@
   },
   "include": [
     "src/setup-jsdom-tests.ts",
-    "src/**/*.test.ts",
-    "src/**/*.test.tsx",
-    "src/**/*.spec.ts",
-    "src/**/*.spec.tsx"
+    "src/**/*.jsdom.test.ts",
+    "src/**/*.jsdom.test.tsx",
+    "src/**/*.jsdom.spec.ts",
+    "src/**/*.jsdom.spec.tsx"
   ],
   "exclude": []
 }
