@@ -25,6 +25,8 @@ export default defineConfig([
   {
     name: 'app',
     files: ['src/**/*.{ts,tsx}'],
+    // Node-environment specs never hold JSX; they get their own block below
+    ignores: ['src/**/*.{test,spec}.ts'],
     extends: [...typescript, ...react],
     languageOptions: {
       globals: globals.browser,
@@ -50,11 +52,27 @@ export default defineConfig([
     },
   },
   {
-    name: 'vitest',
-    files: ['src/setup-jsdom-tests.ts', 'src/**/*.{test,spec}.{ts,tsx}'],
-    extends: [vitest.configs.recommended],
+    name: 'vitest/node',
+    files: ['src/**/*.{test,spec}.ts'],
+    ignores: ['src/**/*.jsdom.{test,spec}.ts'],
+    extends: [...typescript, vitest.configs.recommended],
     languageOptions: {
+      globals: globals.node,
+      parserOptions,
+    },
+    rules: {
+      // We run with `globals: false`, so the APIs must be imported
+      'vitest/prefer-importing-vitest-globals': 'error',
+    },
+  },
+  {
+    name: 'vitest/jsdom',
+    files: ['src/setup-jsdom-tests.ts', 'src/**/*.jsdom.{test,spec}.{ts,tsx}'],
+    extends: [...typescript, vitest.configs.recommended],
+    languageOptions: {
+      // jsdom layers a DOM onto Node rather than replacing it, so tests see both
       globals: { ...globals.node, ...globals.browser },
+      parserOptions,
     },
     rules: {
       // We run with `globals: false`, so the APIs must be imported

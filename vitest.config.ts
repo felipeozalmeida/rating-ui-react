@@ -12,6 +12,15 @@ export default mergeConfig(
         {
           extends: true,
           test: {
+            name: 'node',
+            environment: 'node',
+            include: ['src/**/*.{test,spec}.ts'],
+            exclude: ['src/**/*.jsdom.{test,spec}.ts'],
+          },
+        },
+        {
+          extends: true,
+          test: {
             name: 'jsdom',
             environment: 'jsdom',
             setupFiles: ['src/setup-jsdom-tests.ts'],
