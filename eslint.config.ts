@@ -56,6 +56,10 @@ export default defineConfig([
     languageOptions: {
       globals: { ...globals.node, ...globals.browser },
     },
+    rules: {
+      // We run with `globals: false`, so the APIs must be imported
+      'vitest/prefer-importing-vitest-globals': 'error',
+    },
   },
   skipFormatting,
 ])
