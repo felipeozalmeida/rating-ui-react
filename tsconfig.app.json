@@ -8,7 +8,7 @@
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
-    "src/setup-jsdom-tests.ts",
+    "src/setup-*-tests.ts",
     "src/**/*.test.ts",
     "src/**/*.test.tsx",
     "src/**/*.spec.ts",
