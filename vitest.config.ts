@@ -12,9 +12,24 @@ export default mergeConfig(
         {
           extends: true,
           test: {
-            name: 'src',
+            name: 'node',
+            environment: 'node',
+            include: ['src/**/*.node.{test,spec}.ts'],
+          },
+        },
+        {
+          extends: true,
+          test: {
+            name: 'jsdom',
             environment: 'jsdom',
-            include: ['src/**/*.spec.{ts,tsx}'],
+            setupFiles: ['src/setup-dom-tests.ts'],
+            include: [
+              // `.dom.` specs need a DOM but not a particular one, so they run
+              // on the default implementation. Moving this include, here and in
+              // the matching tsconfig and ESLint block, changes the default.
+              'src/**/*.dom.{test,spec}.{ts,tsx}',
+              'src/**/*.jsdom.{test,spec}.{ts,tsx}',
+            ],
           },
         },
       ],

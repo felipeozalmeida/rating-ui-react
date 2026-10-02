@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.app.vitest.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.vitest.jsdom.tsbuildinfo",
+    // Replaces rather than merges, so every entry must be restated. Where two
+    // entries declare the same ambient symbol the first one wins, which is why
+    // an override goes before what it overrides:
+    // https://vite.dev/guide/features.html#client-types
+    "types": ["vitest/jsdom", "vite/client", "node"]
+  },
+  "include": [
+    "src/setup-dom-tests.ts",
+    // `.dom.` specs run on the default DOM implementation, which is this one
+    "src/**/*.dom.test.ts",
+    "src/**/*.dom.test.tsx",
+    "src/**/*.dom.spec.ts",
+    "src/**/*.dom.spec.tsx",
+    "src/**/*.jsdom.test.ts",
+    "src/**/*.jsdom.test.tsx",
+    "src/**/*.jsdom.spec.ts",
+    "src/**/*.jsdom.spec.tsx"
+  ]
+}

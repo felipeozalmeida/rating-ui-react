@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.app.vitest.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.vitest.node.tsbuildinfo",
+    // Drops DOM so a node spec, and everything it imports, cannot reach for
+    // `document` — that is a compile error, which is the point of opting in.
+    // `lib` replaces rather than merges, so this restates the ES level from
+    // tsconfig.app.json and will drift if @tsconfig/bases/vite-react moves past
+    // ES2023.
+    "lib": ["ES2023"],
+    // Drops vite/client for the same reason: Vitest still applies Vite's
+    // transforms here, but code a node spec reaches should not depend on
+    // `import.meta.env` or asset imports. `types` replaces rather than merges,
+    // so this alone removes the vite/client inherited from
+    // @tsconfig/bases/vite-react.
+    "types": ["node"]
+  },
+  "include": ["src/**/*.node.test.ts", "src/**/*.node.spec.ts"]
+}

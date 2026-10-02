@@ -1,6 +1,6 @@
 import { useLayoutEffect } from 'react'
 import './index.scss'
-import Rating from './components/Rating'
+import Rating from '../Rating'
 
 const App = () => {
   // Using native VH is awkward on mobile, so we calculate a new VH unit here

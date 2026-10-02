@@ -13,6 +13,8 @@ const typescript = [
   tseslint.configs.stylisticTypeChecked,
 ]
 
+const react = [reactHooks.configs.flat.recommended, reactRefresh.configs.vite]
+
 const parserOptions = {
   projectService: true,
   tsconfigRootDir: import.meta.dirname,
@@ -21,16 +23,17 @@ const parserOptions = {
 export default defineConfig([
   globalIgnores(['**/*.js', '**/*.mjs', '*/**/*.cjs']),
   {
-    name: 'app/browser',
+    name: 'app',
     files: ['src/**/*.{ts,tsx}'],
-    extends: [...typescript, reactHooks.configs.flat.recommended, reactRefresh.configs.vite],
+    ignores: ['src/setup-*-tests.ts', 'src/**/*.{test,spec}.{ts,tsx}'],
+    extends: [...typescript, ...react],
     languageOptions: {
       globals: globals.browser,
       parserOptions,
     },
   },
   {
-    name: 'config-files/node',
+    name: 'node',
     files: ['*.{ts,cjs}'],
     extends: typescript,
     languageOptions: {
@@ -39,7 +42,7 @@ export default defineConfig([
     },
   },
   {
-    name: 'config-files/node/cjs',
+    name: 'node/cjs',
     files: ['*.cjs'],
     rules: {
       // Make tseslint play nice with cjs files
@@ -48,9 +51,58 @@ export default defineConfig([
     },
   },
   {
-    name: 'app/test',
-    files: ['src/**/*.spec.{ts,tsx}'],
-    extends: [vitest.configs.recommended],
+    name: 'app/vitest/node',
+    files: ['src/**/*.node.{test,spec}.ts'],
+    extends: [...typescript, vitest.configs.recommended],
+    languageOptions: {
+      globals: globals.node,
+      parserOptions,
+    },
+    rules: {
+      // We run with `globals: false`, so the APIs must be imported
+      'vitest/prefer-importing-vitest-globals': 'error',
+    },
+  },
+  {
+    name: 'app/vitest/jsdom',
+    files: [
+      'src/setup-dom-tests.ts',
+      // `.dom.` specs run on the default DOM implementation, which is this one
+      'src/**/*.dom.{test,spec}.{ts,tsx}',
+      'src/**/*.jsdom.{test,spec}.{ts,tsx}',
+    ],
+    extends: [...typescript, ...react, vitest.configs.recommended],
+    languageOptions: {
+      // jsdom layers a DOM onto Node rather than replacing it, so tests see both
+      globals: { ...globals.node, ...globals.browser },
+      parserOptions,
+    },
+    rules: {
+      // We run with `globals: false`, so the APIs must be imported
+      'vitest/prefer-importing-vitest-globals': 'error',
+    },
+  },
+  {
+    name: 'app/vitest/unqualified',
+    files: ['src/**/*.{test,spec}.{ts,tsx}'],
+    // Everything some Vitest project includes. A spec outside this list would
+    // belong to no project, so it would never run and never be type-checked.
+    ignores: [
+      'src/**/*.node.{test,spec}.ts',
+      'src/**/*.dom.{test,spec}.{ts,tsx}',
+      'src/**/*.jsdom.{test,spec}.{ts,tsx}',
+    ],
+    languageOptions: { parser: tseslint.parser },
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'Program',
+          message:
+            'Qualify the spec filename with its environment: .node. (.ts only), .dom. or .jsdom.',
+        },
+      ],
+    },
   },
   skipFormatting,
 ])
