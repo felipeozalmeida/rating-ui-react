@@ -52,8 +52,7 @@ export default defineConfig([
   },
   {
     name: 'app/vitest/node',
-    files: ['src/**/*.{test,spec}.ts'],
-    ignores: ['src/**/*.jsdom.{test,spec}.ts'],
+    files: ['src/**/*.node.{test,spec}.ts'],
     extends: [...typescript, vitest.configs.recommended],
     languageOptions: {
       globals: globals.node,
@@ -66,7 +65,12 @@ export default defineConfig([
   },
   {
     name: 'app/vitest/jsdom',
-    files: ['src/setup-jsdom-tests.ts', 'src/**/*.jsdom.{test,spec}.{ts,tsx}'],
+    files: [
+      'src/setup-jsdom-tests.ts',
+      // `.dom.` specs run on the default DOM implementation, which is this one
+      'src/**/*.dom.{test,spec}.{ts,tsx}',
+      'src/**/*.jsdom.{test,spec}.{ts,tsx}',
+    ],
     extends: [...typescript, ...react, vitest.configs.recommended],
     languageOptions: {
       // jsdom layers a DOM onto Node rather than replacing it, so tests see both
