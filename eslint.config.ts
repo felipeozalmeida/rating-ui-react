@@ -82,5 +82,27 @@ export default defineConfig([
       'vitest/prefer-importing-vitest-globals': 'error',
     },
   },
+  {
+    name: 'app/vitest/unqualified',
+    files: ['src/**/*.{test,spec}.{ts,tsx}'],
+    // Everything some Vitest project includes. A spec outside this list would
+    // belong to no project, so it would never run and never be type-checked.
+    ignores: [
+      'src/**/*.node.{test,spec}.ts',
+      'src/**/*.dom.{test,spec}.{ts,tsx}',
+      'src/**/*.jsdom.{test,spec}.{ts,tsx}',
+    ],
+    languageOptions: { parser: tseslint.parser },
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'Program',
+          message:
+            'Qualify the spec filename with its environment: .node. (.ts only), .dom. or .jsdom.',
+        },
+      ],
+    },
+  },
   skipFormatting,
 ])
