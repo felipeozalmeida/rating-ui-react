@@ -9,11 +9,12 @@
     // tsconfig.app.json and will drift if @tsconfig/bases/vite-react moves past
     // ES2023.
     "lib": ["ES2023"],
-    // Replaces rather than merges, so every entry must be restated. Where two
-    // entries declare the same ambient symbol the first one wins, which is why
-    // an override goes before what it overrides:
-    // https://vite.dev/guide/features.html#client-types
-    "types": ["vite/client", "node"]
+    // Drops vite/client for the same reason: Vitest still applies Vite's
+    // transforms here, but code a node spec reaches should not depend on
+    // `import.meta.env` or asset imports. `types` replaces rather than merges,
+    // so this alone removes the vite/client inherited from
+    // @tsconfig/bases/vite-react.
+    "types": ["node"]
   },
   "include": ["src/**/*.node.test.ts", "src/**/*.node.spec.ts"]
 }
