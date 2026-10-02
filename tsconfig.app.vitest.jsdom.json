@@ -10,6 +10,11 @@
   },
   "include": [
     "src/setup-jsdom-tests.ts",
+    // `.dom.` specs run on the default DOM implementation, which is this one
+    "src/**/*.dom.test.ts",
+    "src/**/*.dom.test.tsx",
+    "src/**/*.dom.spec.ts",
+    "src/**/*.dom.spec.tsx",
     "src/**/*.jsdom.test.ts",
     "src/**/*.jsdom.test.tsx",
     "src/**/*.jsdom.spec.ts",

@@ -3,10 +3,11 @@
   "files": [],
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.vitest.node.tsbuildinfo",
-    // Drops DOM so an unqualified spec cannot reach for `document` — that is a
-    // compile error telling you to qualify the filename. `lib` replaces rather
-    // than merges, so this restates the ES level from tsconfig.app.json and
-    // will drift if @tsconfig/bases/vite-react moves past ES2023.
+    // Drops DOM so a node spec, and everything it imports, cannot reach for
+    // `document` — that is a compile error, which is the point of opting in.
+    // `lib` replaces rather than merges, so this restates the ES level from
+    // tsconfig.app.json and will drift if @tsconfig/bases/vite-react moves past
+    // ES2023.
     "lib": ["ES2023"],
     // Replaces rather than merges, so every entry must be restated. Where two
     // entries declare the same ambient symbol the first one wins, which is why
@@ -14,6 +15,5 @@
     // https://vite.dev/guide/features.html#client-types
     "types": ["vite/client", "node"]
   },
-  "include": ["src/**/*.test.ts", "src/**/*.spec.ts"],
-  "exclude": ["src/**/*.jsdom.test.ts", "src/**/*.jsdom.spec.ts"]
+  "include": ["src/**/*.node.test.ts", "src/**/*.node.spec.ts"]
 }
