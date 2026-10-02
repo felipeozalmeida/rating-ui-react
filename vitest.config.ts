@@ -22,7 +22,7 @@ export default mergeConfig(
           test: {
             name: 'jsdom',
             environment: 'jsdom',
-            setupFiles: ['src/setup-jsdom-tests.ts'],
+            setupFiles: ['src/setup-dom-tests.ts'],
             include: [
               // `.dom.` specs need a DOM but not a particular one, so they run
               // on the default implementation. Moving this include, here and in

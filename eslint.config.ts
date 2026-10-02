@@ -66,7 +66,7 @@ export default defineConfig([
   {
     name: 'app/vitest/jsdom',
     files: [
-      'src/setup-jsdom-tests.ts',
+      'src/setup-dom-tests.ts',
       // `.dom.` specs run on the default DOM implementation, which is this one
       'src/**/*.dom.{test,spec}.{ts,tsx}',
       'src/**/*.jsdom.{test,spec}.{ts,tsx}',
