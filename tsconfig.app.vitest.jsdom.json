@@ -9,7 +9,7 @@
     "types": ["vitest/jsdom", "vite/client", "node"]
   },
   "include": [
-    "src/setup-jsdom-tests.ts",
+    "src/setup-dom-tests.ts",
     // `.dom.` specs run on the default DOM implementation, which is this one
     "src/**/*.dom.test.ts",
     "src/**/*.dom.test.tsx",
