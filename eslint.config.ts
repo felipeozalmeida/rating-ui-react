@@ -83,8 +83,7 @@ export default defineConfig([
       'src/env.happy-dom.d.ts',
       'src/env.dom.setup.ts',
       // `.dom.` specs run on the default DOM implementation, which is this one
-      'src/**/*.dom.{test,spec}.{ts,tsx}',
-      'src/**/*.happy-dom.{test,spec}.{ts,tsx}',
+      'src/**/*.{dom,happy-dom}.{test,spec}.{ts,tsx}',
     ],
     extends: [...typescript, ...react, vitest.configs.recommended],
     languageOptions: {
@@ -104,9 +103,7 @@ export default defineConfig([
     // belong to no project, so it would never run and never be type-checked.
     ignores: [
       'src/**/*.node.{test,spec}.ts',
-      'src/**/*.dom.{test,spec}.{ts,tsx}',
-      'src/**/*.jsdom.{test,spec}.{ts,tsx}',
-      'src/**/*.happy-dom.{test,spec}.{ts,tsx}',
+      'src/**/*.{dom,jsdom,happy-dom}.{test,spec}.{ts,tsx}',
     ],
     languageOptions: { parser: tseslint.parser },
     rules: {

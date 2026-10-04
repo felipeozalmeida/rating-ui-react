@@ -32,13 +32,11 @@ export default mergeConfig(
             name: 'happy-dom',
             environment: 'happy-dom',
             setupFiles: ['src/env.dom.setup.ts'],
-            include: [
-              // `.dom.` specs need a DOM but not a particular one, so they run
-              // on the default implementation. Moving this include, here and in
-              // the matching tsconfig and ESLint block, changes the default.
-              'src/**/*.dom.{test,spec}.{ts,tsx}',
-              'src/**/*.happy-dom.{test,spec}.{ts,tsx}',
-            ],
+            // `.dom.` specs need a DOM but not a particular one, so they run on
+            // the default implementation. Moving `dom` out of this glob, here
+            // and in the matching tsconfig and ESLint block, changes the
+            // default.
+            include: ['src/**/*.{dom,happy-dom}.{test,spec}.{ts,tsx}'],
           },
         },
       ],
