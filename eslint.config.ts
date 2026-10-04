@@ -25,7 +25,7 @@ export default defineConfig([
   {
     name: 'app',
     files: ['src/**/*.{ts,tsx}'],
-    ignores: ['src/setup-*-tests.ts', 'src/**/*.{test,spec}.{ts,tsx}'],
+    ignores: ['src/setup-*-tests.ts', 'src/env.*.d.ts', 'src/**/*.{test,spec}.{ts,tsx}'],
     extends: [...typescript, ...react],
     languageOptions: {
       globals: globals.browser,
@@ -83,6 +83,24 @@ export default defineConfig([
     },
   },
   {
+    name: 'app/vitest/happy-dom',
+    files: [
+      'src/setup-dom-tests.ts',
+      'src/env.happy-dom.d.ts',
+      'src/**/*.happy-dom.{test,spec}.{ts,tsx}',
+    ],
+    extends: [...typescript, ...react, vitest.configs.recommended],
+    languageOptions: {
+      // happy-dom layers a DOM onto Node rather than replacing it, so tests see both
+      globals: { ...globals.node, ...globals.browser },
+      parserOptions,
+    },
+    rules: {
+      // We run with `globals: false`, so the APIs must be imported
+      'vitest/prefer-importing-vitest-globals': 'error',
+    },
+  },
+  {
     name: 'app/vitest/unqualified',
     files: ['src/**/*.{test,spec}.{ts,tsx}'],
     // Everything some Vitest project includes. A spec outside this list would
@@ -91,6 +109,7 @@ export default defineConfig([
       'src/**/*.node.{test,spec}.ts',
       'src/**/*.dom.{test,spec}.{ts,tsx}',
       'src/**/*.jsdom.{test,spec}.{ts,tsx}',
+      'src/**/*.happy-dom.{test,spec}.{ts,tsx}',
     ],
     languageOptions: { parser: tseslint.parser },
     rules: {
@@ -99,7 +118,7 @@ export default defineConfig([
         {
           selector: 'Program',
           message:
-            'Qualify the spec filename with its environment: .node. (.ts only), .dom. or .jsdom.',
+            'Qualify the spec filename with its environment: .node. (.ts only), .dom., .jsdom. or .happy-dom.',
         },
       ],
     },
