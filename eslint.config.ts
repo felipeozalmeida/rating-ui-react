@@ -65,12 +65,7 @@ export default defineConfig([
   },
   {
     name: 'app/vitest/jsdom',
-    files: [
-      'src/env.dom.setup.ts',
-      // `.dom.` specs run on the default DOM implementation, which is this one
-      'src/**/*.dom.{test,spec}.{ts,tsx}',
-      'src/**/*.jsdom.{test,spec}.{ts,tsx}',
-    ],
+    files: ['src/env.dom.setup.ts', 'src/**/*.jsdom.{test,spec}.{ts,tsx}'],
     extends: [...typescript, ...react, vitest.configs.recommended],
     languageOptions: {
       // jsdom layers a DOM onto Node rather than replacing it, so tests see both
@@ -87,6 +82,8 @@ export default defineConfig([
     files: [
       'src/env.dom.setup.ts',
       'src/env.happy-dom.d.ts',
+      // `.dom.` specs run on the default DOM implementation, which is this one
+      'src/**/*.dom.{test,spec}.{ts,tsx}',
       'src/**/*.happy-dom.{test,spec}.{ts,tsx}',
     ],
     extends: [...typescript, ...react, vitest.configs.recommended],
