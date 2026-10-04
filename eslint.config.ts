@@ -25,7 +25,7 @@ export default defineConfig([
   {
     name: 'app',
     files: ['src/**/*.{ts,tsx}'],
-    ignores: ['src/env.*.setup.ts', 'src/env.*.d.ts', 'src/**/*.{test,spec}.{ts,tsx}'],
+    ignores: ['src/env.*.d.ts', 'src/env.*.setup.ts', 'src/**/*.{test,spec}.{ts,tsx}'],
     extends: [...typescript, ...react],
     languageOptions: {
       globals: globals.browser,
@@ -80,8 +80,8 @@ export default defineConfig([
   {
     name: 'app/vitest/happy-dom',
     files: [
-      'src/env.dom.setup.ts',
       'src/env.happy-dom.d.ts',
+      'src/env.dom.setup.ts',
       // `.dom.` specs run on the default DOM implementation, which is this one
       'src/**/*.dom.{test,spec}.{ts,tsx}',
       'src/**/*.happy-dom.{test,spec}.{ts,tsx}',
