@@ -9,7 +9,7 @@
     "types": ["vite/client", "node"]
   },
   "include": [
-    "src/setup-dom-tests.ts",
+    "src/env.dom.setup.ts",
     "src/env.happy-dom.d.ts",
     "src/**/*.happy-dom.test.ts",
     "src/**/*.happy-dom.test.tsx",
