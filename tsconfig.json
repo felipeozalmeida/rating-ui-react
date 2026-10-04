@@ -12,6 +12,9 @@
     },
     {
       "path": "./tsconfig.app.vitest.jsdom.json"
+    },
+    {
+      "path": "./tsconfig.app.vitest.happy-dom.json"
     }
   ]
 }

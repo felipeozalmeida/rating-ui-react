@@ -32,6 +32,15 @@ export default mergeConfig(
             ],
           },
         },
+        {
+          extends: true,
+          test: {
+            name: 'happy-dom',
+            environment: 'happy-dom',
+            setupFiles: ['src/setup-dom-tests.ts'],
+            include: ['src/**/*.happy-dom.{test,spec}.{ts,tsx}'],
+          },
+        },
       ],
     },
   }),
