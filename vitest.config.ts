@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'node:url'
 import { mergeConfig, defineConfig, configDefaults } from 'vitest/config'
+import { playwright } from '@vitest/browser-playwright'
 import viteConfig from './vite.config.ts'
 
 export default mergeConfig(
@@ -37,6 +38,24 @@ export default mergeConfig(
             // and in the matching tsconfig and ESLint block, changes the
             // default.
             include: ['src/**/*.{dom,happy-dom}.{test,spec}.{ts,tsx}'],
+          },
+        },
+        {
+          extends: true,
+          test: {
+            name: 'browser',
+            include: ['src/**/*.browser.{test,spec}.{ts,tsx}'],
+            browser: {
+              enabled: true,
+              // Vitest opens a visible window by default. Pass
+              // `--browser.headless=false` to get it back for debugging.
+              headless: true,
+              // New headless: the real Chrome build rather than Playwright's
+              // separate headless shell, which is the point of this tier.
+              // https://vitest.dev/config/browser/playwright
+              provider: playwright({ launchOptions: { channel: 'chromium' } }),
+              instances: [{ browser: 'chromium' }],
+            },
           },
         },
       ],
