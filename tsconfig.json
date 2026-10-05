@@ -11,10 +11,10 @@
       "path": "./tsconfig.app.vitest.node.json"
     },
     {
-      "path": "./tsconfig.app.vitest.jsdom.json"
+      "path": "./tsconfig.app.vitest.happy-dom.json"
     },
     {
-      "path": "./tsconfig.app.vitest.happy-dom.json"
+      "path": "./tsconfig.app.vitest.jsdom.json"
     },
     {
       "path": "./tsconfig.app.vitest.browser.json"
