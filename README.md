@@ -56,8 +56,16 @@ the cheapest to the most faithful:
 | `.jsdom.`     | jsdom                                                 |
 | `.browser.`   | real Chromium through Playwright, with layout and CSS |
 
-Pick the cheapest one that can exercise what the spec tests. A spec without a
-qualifier fails lint.
+Pick the cheapest one that can exercise what the spec tests:
+
+- `.node.` for logic that doesn't touch the DOM
+- `.dom.` for components and hooks. Hooks need a DOM too, because rendering
+  them goes through React DOM.
+- `.happy-dom.` or `.jsdom.` only when the spec depends on that implementation
+- `.browser.` only for what the emulators can't do, such as layout, real CSS
+  or workers
+
+A spec without a qualifier fails lint.
 
 Browser Mode specs run in Chromium through Playwright, which has to be
 downloaded once:
