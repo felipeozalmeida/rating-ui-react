@@ -97,13 +97,27 @@ export default defineConfig([
     },
   },
   {
+    name: 'app/vitest/browser',
+    files: ['src/**/*.browser.{test,spec}.{ts,tsx}'],
+    extends: [...typescript, ...react, vitest.configs.recommended],
+    languageOptions: {
+      // A real browser: no Node globals, unlike the emulated DOMs
+      globals: globals.browser,
+      parserOptions,
+    },
+    rules: {
+      // We run with `globals: false`, so the APIs must be imported
+      'vitest/prefer-importing-vitest-globals': 'error',
+    },
+  },
+  {
     name: 'app/vitest/unqualified',
     files: ['src/**/*.{test,spec}.{ts,tsx}'],
     // Everything some Vitest project includes. A spec outside this list would
     // belong to no project, so it would never run and never be type-checked.
     ignores: [
       'src/**/*.node.{test,spec}.ts',
-      'src/**/*.{dom,jsdom,happy-dom}.{test,spec}.{ts,tsx}',
+      'src/**/*.{dom,jsdom,happy-dom,browser}.{test,spec}.{ts,tsx}',
     ],
     languageOptions: { parser: tseslint.parser },
     rules: {
@@ -112,7 +126,7 @@ export default defineConfig([
         {
           selector: 'Program',
           message:
-            'Qualify the spec filename with its environment: .node. (.ts only), .dom., .jsdom. or .happy-dom.',
+            'Qualify the spec filename with its environment: .node. (.ts only), .dom., .jsdom., .happy-dom. or .browser.',
         },
       ],
     },

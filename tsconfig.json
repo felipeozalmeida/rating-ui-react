@@ -15,6 +15,9 @@
     },
     {
       "path": "./tsconfig.app.vitest.happy-dom.json"
+    },
+    {
+      "path": "./tsconfig.app.vitest.browser.json"
     }
   ]
 }

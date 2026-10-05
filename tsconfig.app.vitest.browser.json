@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.app.vitest.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.vitest.browser.tsbuildinfo",
+    // Replaces rather than merges, so every entry must be restated. No "node":
+    // these specs run in a real browser, where Node's globals do not exist.
+    "types": ["vite/client"]
+  },
+  "include": [
+    "src/**/*.browser.test.ts",
+    "src/**/*.browser.test.tsx",
+    "src/**/*.browser.spec.ts",
+    "src/**/*.browser.spec.tsx"
+  ]
+}

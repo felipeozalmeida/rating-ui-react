@@ -71,6 +71,10 @@ jobs:
         with:
           name: dist
           path: './dist'
+      - name: Install Playwright Chromium
+        # Browser Mode uses new headless (channel: 'chromium'), which runs the
+        # full Chromium build, so the separate headless shell is not needed
+        run: npx playwright install --with-deps --no-shell chromium
       - name: Run tests
         run: npm test
         env:
