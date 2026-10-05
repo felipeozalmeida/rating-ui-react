@@ -72,9 +72,10 @@ jobs:
           name: dist
           path: './dist'
       - name: Install Playwright Chromium
-        # Browser Mode uses new headless (channel: 'chromium'), which runs the
-        # full Chromium build, so the separate headless shell is not needed
-        run: npx playwright install --with-deps --no-shell chromium
+        # `--with-deps` also installs Chromium's system libraries. Playwright
+        # does that with apt, so it only works on Debian-based systems such as
+        # this runner, which is why test:install leaves it out.
+        run: npm run test:install -- --with-deps
       - name: Run tests
         run: npm test
         env:

@@ -23,6 +23,7 @@
     "build-only": "vite build",
     "preview": "vite preview",
     "test": "run-s test:unit test:lhci",
+    "test:install": "playwright install --no-shell chromium",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest watch",
     "test:lhci": "run-s test:lhci:mobile test:lhci:desktop",

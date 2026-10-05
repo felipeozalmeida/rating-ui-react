@@ -41,3 +41,23 @@ Then you're ready to go with:
 ```sh
 npm run dev
 ```
+
+## Running Tests
+
+Browser Mode specs run in Chromium through Playwright, which has to be
+downloaded once:
+
+```sh
+npm run test:install
+npm run test:unit
+```
+
+On Linux, Chromium also needs some system libraries. On Debian, Ubuntu and
+their derivatives, Playwright can install them for you:
+
+```sh
+npm run test:install -- --with-deps
+```
+
+This uses apt, so it fails on other distributions. There, install Chromium's
+dependencies with your own package manager instead.
