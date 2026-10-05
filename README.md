@@ -44,6 +44,21 @@ npm run dev
 
 ## Running Tests
 
+Every spec names the environment it runs in with a qualifier in its filename,
+such as `Rating.dom.spec.tsx`. The environments are ordered by fidelity, from
+the cheapest to the most faithful:
+
+| qualifier     | runs in                                               |
+| ------------- | ----------------------------------------------------- |
+| `.node.`      | Node, with no DOM (`.ts` only)                        |
+| `.dom.`       | the default DOM implementation, currently happy-dom   |
+| `.happy-dom.` | happy-dom                                             |
+| `.jsdom.`     | jsdom                                                 |
+| `.browser.`   | real Chromium through Playwright, with layout and CSS |
+
+Pick the cheapest one that can exercise what the spec tests. A spec without a
+qualifier fails lint.
+
 Browser Mode specs run in Chromium through Playwright, which has to be
 downloaded once:
 
