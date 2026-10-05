@@ -21,15 +21,6 @@ export default mergeConfig(
         {
           extends: true,
           test: {
-            name: 'jsdom',
-            environment: 'jsdom',
-            setupFiles: ['src/env.dom.setup.ts'],
-            include: ['src/**/*.jsdom.{test,spec}.{ts,tsx}'],
-          },
-        },
-        {
-          extends: true,
-          test: {
             name: 'happy-dom',
             environment: 'happy-dom',
             setupFiles: ['src/env.dom.setup.ts'],
@@ -38,6 +29,15 @@ export default mergeConfig(
             // and in the matching tsconfig and ESLint block, changes the
             // default.
             include: ['src/**/*.{dom,happy-dom}.{test,spec}.{ts,tsx}'],
+          },
+        },
+        {
+          extends: true,
+          test: {
+            name: 'jsdom',
+            environment: 'jsdom',
+            setupFiles: ['src/env.dom.setup.ts'],
+            include: ['src/**/*.jsdom.{test,spec}.{ts,tsx}'],
           },
         },
         {

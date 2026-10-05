@@ -64,20 +64,6 @@ export default defineConfig([
     },
   },
   {
-    name: 'app/vitest/jsdom',
-    files: ['src/env.dom.setup.ts', 'src/**/*.jsdom.{test,spec}.{ts,tsx}'],
-    extends: [...typescript, ...react, vitest.configs.recommended],
-    languageOptions: {
-      // jsdom layers a DOM onto Node rather than replacing it, so tests see both
-      globals: { ...globals.node, ...globals.browser },
-      parserOptions,
-    },
-    rules: {
-      // We run with `globals: false`, so the APIs must be imported
-      'vitest/prefer-importing-vitest-globals': 'error',
-    },
-  },
-  {
     name: 'app/vitest/happy-dom',
     files: [
       'src/env.happy-dom.d.ts',
@@ -88,6 +74,20 @@ export default defineConfig([
     extends: [...typescript, ...react, vitest.configs.recommended],
     languageOptions: {
       // happy-dom layers a DOM onto Node rather than replacing it, so tests see both
+      globals: { ...globals.node, ...globals.browser },
+      parserOptions,
+    },
+    rules: {
+      // We run with `globals: false`, so the APIs must be imported
+      'vitest/prefer-importing-vitest-globals': 'error',
+    },
+  },
+  {
+    name: 'app/vitest/jsdom',
+    files: ['src/env.dom.setup.ts', 'src/**/*.jsdom.{test,spec}.{ts,tsx}'],
+    extends: [...typescript, ...react, vitest.configs.recommended],
+    languageOptions: {
+      // jsdom layers a DOM onto Node rather than replacing it, so tests see both
       globals: { ...globals.node, ...globals.browser },
       parserOptions,
     },
@@ -117,7 +117,7 @@ export default defineConfig([
     // belong to no project, so it would never run and never be type-checked.
     ignores: [
       'src/**/*.node.{test,spec}.ts',
-      'src/**/*.{dom,jsdom,happy-dom,browser}.{test,spec}.{ts,tsx}',
+      'src/**/*.{dom,happy-dom,jsdom,browser}.{test,spec}.{ts,tsx}',
     ],
     languageOptions: { parser: tseslint.parser },
     rules: {
@@ -126,7 +126,7 @@ export default defineConfig([
         {
           selector: 'Program',
           message:
-            'Qualify the spec filename with its environment: .node. (.ts only), .dom., .jsdom., .happy-dom. or .browser.',
+            'Qualify the spec filename with its environment: .node. (.ts only), .dom., .happy-dom., .jsdom. or .browser.',
         },
       ],
     },
