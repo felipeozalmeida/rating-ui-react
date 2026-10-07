@@ -8,8 +8,8 @@
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
-    "src/env.*.d.ts",
-    "src/env.*.setup.ts",
+    "src/tests/env.*.d.ts",
+    "src/tests/env.*.setup.ts",
     "src/**/*.test.ts",
     "src/**/*.test.tsx",
     "src/**/*.spec.ts",

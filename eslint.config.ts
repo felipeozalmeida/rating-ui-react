@@ -25,7 +25,7 @@ export default defineConfig([
   {
     name: 'app',
     files: ['src/**/*.{ts,tsx}'],
-    ignores: ['src/env.*.d.ts', 'src/env.*.setup.ts', 'src/**/*.{test,spec}.{ts,tsx}'],
+    ignores: ['src/tests/env.*.d.ts', 'src/tests/env.*.setup.ts', 'src/**/*.{test,spec}.{ts,tsx}'],
     extends: [...typescript, ...react],
     languageOptions: {
       globals: globals.browser,
@@ -66,8 +66,8 @@ export default defineConfig([
   {
     name: 'app/vitest/happy-dom',
     files: [
-      'src/env.happy-dom.d.ts',
-      'src/env.dom.setup.ts',
+      'src/tests/env.happy-dom.d.ts',
+      'src/tests/env.dom.setup.ts',
       // `.dom.` specs run on the default DOM implementation, which is this one
       'src/**/*.{dom,happy-dom}.{test,spec}.{ts,tsx}',
     ],
@@ -84,7 +84,7 @@ export default defineConfig([
   },
   {
     name: 'app/vitest/jsdom',
-    files: ['src/env.dom.setup.ts', 'src/**/*.jsdom.{test,spec}.{ts,tsx}'],
+    files: ['src/tests/env.dom.setup.ts', 'src/**/*.jsdom.{test,spec}.{ts,tsx}'],
     extends: [...typescript, ...react, vitest.configs.recommended],
     languageOptions: {
       // jsdom layers a DOM onto Node rather than replacing it, so tests see both

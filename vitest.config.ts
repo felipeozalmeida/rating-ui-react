@@ -23,7 +23,7 @@ export default mergeConfig(
           test: {
             name: 'happy-dom',
             environment: 'happy-dom',
-            setupFiles: ['src/env.dom.setup.ts'],
+            setupFiles: ['src/tests/env.dom.setup.ts'],
             // `.dom.` specs need a DOM but not a particular one, so they run on
             // the default implementation. Moving `dom` out of this glob, here
             // and in the matching tsconfig and ESLint block, changes the
@@ -36,7 +36,7 @@ export default mergeConfig(
           test: {
             name: 'jsdom',
             environment: 'jsdom',
-            setupFiles: ['src/env.dom.setup.ts'],
+            setupFiles: ['src/tests/env.dom.setup.ts'],
             include: ['src/**/*.jsdom.{test,spec}.{ts,tsx}'],
           },
         },

@@ -9,7 +9,7 @@
     "types": ["vitest/jsdom", "vite/client", "node"]
   },
   "include": [
-    "src/env.dom.setup.ts",
+    "src/tests/env.dom.setup.ts",
     "src/**/*.jsdom.test.ts",
     "src/**/*.jsdom.test.tsx",
     "src/**/*.jsdom.spec.ts",
