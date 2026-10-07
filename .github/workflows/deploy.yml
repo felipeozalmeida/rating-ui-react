@@ -34,22 +34,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+
       - name: Set up Node
         uses: actions/setup-node@v6
         with:
           node-version-file: package.json
           cache: 'npm'
+
       - name: Install dependencies
         run: npm ci
+
       - name: Build
         run: npm run build
+
       - name: Setup Pages
         uses: actions/configure-pages@v6
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
           # Upload dist folder
           path: './dist'
+
       - name: Upload dist artifact
         uses: actions/upload-artifact@v7
         with:
@@ -63,27 +69,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+
       - name: Set up Node
         uses: actions/setup-node@v6
         with:
           node-version-file: package.json
           cache: 'npm'
+
       - name: Install dependencies
         run: npm ci
+
       - name: Download dist artifact
         uses: actions/download-artifact@v8
         with:
           name: dist
           path: './dist'
+
       - name: Install browsers
         # `--with-deps` also installs the browsers' system libraries. Playwright
         # does that with apt, so it only works on Debian-based systems such as
         # this runner, which is why test:install leaves it out.
         run: npm run test:install -- --with-deps
+
       - name: Run tests
         run: npm test
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
       - name: Upload lighthouseci-reports artifact
         # Also upload when tests fail, since that is when the reports matter.
         if: ${{ !cancelled() }}
