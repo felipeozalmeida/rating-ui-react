@@ -67,6 +67,9 @@ Pick the cheapest one that can exercise what the spec tests:
 
 A spec without a qualifier fails lint.
 
+Vitest, TypeScript and ESLint pick up both `.spec.` and `.test.` files. Wherever
+a config lists both, `spec` comes first, as in `*.{spec,test}.{ts,tsx}`.
+
 Browser Mode specs run in Chromium through Playwright, which has to be
 downloaded once:
 
