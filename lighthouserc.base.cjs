@@ -1,5 +1,7 @@
 /** @import { CliFlags } from "lighthouse" */
 
+const { chromium } = require('playwright')
+
 /**
  * @typedef {object} ConfigParameters
  * @property {"mobile" | "desktop"} [subdir]
@@ -16,6 +18,9 @@ const getConfig = ({ subdir = 'mobile', settings = {} } = {}) => ({
       startServerReadyPattern: 'Local',
       startServerReadyTimeout: 30000,
       url: ['http://localhost:4173/rating-ui-react/'],
+      // Audit with the Chromium that test:install downloads for Vitest's
+      // Browser Mode, so both test suites run against the same browser.
+      chromePath: chromium.executablePath(),
       settings,
     },
     assert: {
