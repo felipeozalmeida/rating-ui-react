@@ -51,7 +51,7 @@ export default defineConfig([
     },
   },
   {
-    name: 'app/vitest/node',
+    name: 'app/spec/node',
     files: ['src/**/*.node.{test,spec}.ts'],
     extends: [...typescript, vitest.configs.recommended],
     languageOptions: {
@@ -64,7 +64,7 @@ export default defineConfig([
     },
   },
   {
-    name: 'app/vitest/happy-dom',
+    name: 'app/spec/happy-dom',
     files: [
       'src/tests/env.happy-dom.d.ts',
       'src/tests/env.dom.setup.ts',
@@ -83,7 +83,7 @@ export default defineConfig([
     },
   },
   {
-    name: 'app/vitest/jsdom',
+    name: 'app/spec/jsdom',
     files: ['src/tests/env.dom.setup.ts', 'src/**/*.jsdom.{test,spec}.{ts,tsx}'],
     extends: [...typescript, ...react, vitest.configs.recommended],
     languageOptions: {
@@ -97,7 +97,7 @@ export default defineConfig([
     },
   },
   {
-    name: 'app/vitest/browser',
+    name: 'app/spec/browser',
     files: ['src/**/*.browser.{test,spec}.{ts,tsx}'],
     extends: [...typescript, ...react, vitest.configs.recommended],
     languageOptions: {
@@ -111,7 +111,7 @@ export default defineConfig([
     },
   },
   {
-    name: 'app/vitest/unqualified',
+    name: 'app/spec/unqualified',
     files: ['src/**/*.{test,spec}.{ts,tsx}'],
     // Everything some Vitest project includes. A spec outside this list would
     // belong to no project, so it would never run and never be type-checked.

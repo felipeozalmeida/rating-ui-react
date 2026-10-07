@@ -1,7 +1,7 @@
 {
-  "extends": "./tsconfig.app.vitest.json",
+  "extends": "./tsconfig.app.spec.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.vitest.happy-dom.tsbuildinfo",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.spec.happy-dom.tsbuildinfo",
     // Replaces rather than merges, so every entry must be restated. Where two
     // entries declare the same ambient symbol the first one wins, which is why
     // an override goes before what it overrides:

@@ -1,7 +1,7 @@
 {
-  "extends": "./tsconfig.app.vitest.json",
+  "extends": "./tsconfig.app.spec.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.vitest.browser.tsbuildinfo"
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.spec.browser.tsbuildinfo"
     // `types` is inherited from the app as ["vite/client"]. No "node": these
     // specs run in a real browser, where Node's globals do not exist.
   },
