@@ -21,7 +21,14 @@ const getConfig = ({ subdir = 'mobile', settings = {} } = {}) => ({
       // Audit with the Chromium that test:install downloads for Vitest's
       // Browser Mode, so both test suites run against the same browser.
       chromePath: chromium.executablePath(),
-      settings,
+      settings: {
+        // Ubuntu 23.10+ blocks the unprivileged user namespaces Chromium's
+        // sandbox needs, so it crashes on the CI runner unless disabled, as
+        // Playwright already does. This is safe here because Lighthouse only
+        // loads our own build from localhost.
+        ...(process.env['CI'] && { chromeFlags: '--no-sandbox' }),
+        ...settings,
+      },
     },
     assert: {
       includePassedAssertions: true,
