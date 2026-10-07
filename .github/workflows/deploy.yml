@@ -25,11 +25,13 @@ env:
   HUSKY: 0
 
 jobs:
-  build:
+  deploy:
     # Manual runs can start from any branch, but the github-pages environment
-    # only accepts deployments from main. Skipping this job also skips the
-    # jobs that need it.
+    # only accepts deployments from main.
     if: github.ref == 'refs/heads/main'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -46,44 +48,6 @@ jobs:
 
       - name: Build
         run: npm run build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v6
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v5
-        with:
-          # Upload dist folder
-          path: './dist'
-
-      - name: Upload dist artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: dist
-          path: './dist'
-          retention-days: 7
-
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Set up Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: package.json
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Download dist artifact
-        uses: actions/download-artifact@v8
-        with:
-          name: dist
-          path: './dist'
 
       - name: Install browsers
         # `--with-deps` also installs the browsers' system libraries. Playwright
@@ -106,13 +70,15 @@ jobs:
           retention-days: 7
           include-hidden-files: true
 
-  release:
-    needs: [build, test]
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          # Upload dist folder
+          path: './dist'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
