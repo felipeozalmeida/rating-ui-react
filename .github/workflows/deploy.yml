@@ -68,8 +68,8 @@ jobs:
         with:
           name: dist
           path: './dist'
-      - name: Install Playwright Chromium
-        # `--with-deps` also installs Chromium's system libraries. Playwright
+      - name: Install browsers
+        # `--with-deps` also installs the browsers' system libraries. Playwright
         # does that with apt, so it only works on Debian-based systems such as
         # this runner, which is why test:install leaves it out.
         run: npm run test:install -- --with-deps
