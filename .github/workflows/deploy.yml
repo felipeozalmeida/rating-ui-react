@@ -81,6 +81,8 @@ jobs:
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
       - name: Upload LHCI artifacts
+        # Also upload when tests fail, since that is when the reports matter.
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
           name: lhci
