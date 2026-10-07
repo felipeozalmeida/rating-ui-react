@@ -12,13 +12,13 @@
     "src/tests/env.happy-dom.d.ts",
     "src/tests/env.dom.setup.ts",
     // `.dom.` specs run on the default DOM implementation, which is this one
-    "src/**/*.dom.test.ts",
-    "src/**/*.dom.test.tsx",
     "src/**/*.dom.spec.ts",
     "src/**/*.dom.spec.tsx",
-    "src/**/*.happy-dom.test.ts",
-    "src/**/*.happy-dom.test.tsx",
+    "src/**/*.dom.test.ts",
+    "src/**/*.dom.test.tsx",
     "src/**/*.happy-dom.spec.ts",
-    "src/**/*.happy-dom.spec.tsx"
+    "src/**/*.happy-dom.spec.tsx",
+    "src/**/*.happy-dom.test.ts",
+    "src/**/*.happy-dom.test.tsx"
   ]
 }

@@ -15,5 +15,5 @@
     // @tsconfig/bases/vite-react.
     "types": ["node"]
   },
-  "include": ["src/**/*.node.test.ts", "src/**/*.node.spec.ts"]
+  "include": ["src/**/*.node.spec.ts", "src/**/*.node.test.ts"]
 }

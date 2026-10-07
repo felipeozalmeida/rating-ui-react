@@ -10,9 +10,9 @@
   },
   "include": [
     "src/tests/env.dom.setup.ts",
-    "src/**/*.jsdom.test.ts",
-    "src/**/*.jsdom.test.tsx",
     "src/**/*.jsdom.spec.ts",
-    "src/**/*.jsdom.spec.tsx"
+    "src/**/*.jsdom.spec.tsx",
+    "src/**/*.jsdom.test.ts",
+    "src/**/*.jsdom.test.tsx"
   ]
 }

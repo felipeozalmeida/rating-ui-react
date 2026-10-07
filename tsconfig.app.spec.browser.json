@@ -6,9 +6,9 @@
     // specs run in a real browser, where Node's globals do not exist.
   },
   "include": [
-    "src/**/*.browser.test.ts",
-    "src/**/*.browser.test.tsx",
     "src/**/*.browser.spec.ts",
-    "src/**/*.browser.spec.tsx"
+    "src/**/*.browser.spec.tsx",
+    "src/**/*.browser.test.ts",
+    "src/**/*.browser.test.tsx"
   ]
 }

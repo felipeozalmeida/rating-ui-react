@@ -25,7 +25,7 @@ export default defineConfig([
   {
     name: 'app',
     files: ['src/**/*.{ts,tsx}'],
-    ignores: ['src/tests/env.*.d.ts', 'src/tests/env.*.setup.ts', 'src/**/*.{test,spec}.{ts,tsx}'],
+    ignores: ['src/tests/env.*.d.ts', 'src/tests/env.*.setup.ts', 'src/**/*.{spec,test}.{ts,tsx}'],
     extends: [...typescript, ...react],
     languageOptions: {
       globals: globals.browser,
@@ -52,7 +52,7 @@ export default defineConfig([
   },
   {
     name: 'app/spec/node',
-    files: ['src/**/*.node.{test,spec}.ts'],
+    files: ['src/**/*.node.{spec,test}.ts'],
     extends: [...typescript, vitest.configs.recommended],
     languageOptions: {
       globals: globals.node,
@@ -69,7 +69,7 @@ export default defineConfig([
       'src/tests/env.happy-dom.d.ts',
       'src/tests/env.dom.setup.ts',
       // `.dom.` specs run on the default DOM implementation, which is this one
-      'src/**/*.{dom,happy-dom}.{test,spec}.{ts,tsx}',
+      'src/**/*.{dom,happy-dom}.{spec,test}.{ts,tsx}',
     ],
     extends: [...typescript, ...react, vitest.configs.recommended],
     languageOptions: {
@@ -84,7 +84,7 @@ export default defineConfig([
   },
   {
     name: 'app/spec/jsdom',
-    files: ['src/tests/env.dom.setup.ts', 'src/**/*.jsdom.{test,spec}.{ts,tsx}'],
+    files: ['src/tests/env.dom.setup.ts', 'src/**/*.jsdom.{spec,test}.{ts,tsx}'],
     extends: [...typescript, ...react, vitest.configs.recommended],
     languageOptions: {
       // jsdom layers a DOM onto Node rather than replacing it, so tests see both
@@ -98,7 +98,7 @@ export default defineConfig([
   },
   {
     name: 'app/spec/browser',
-    files: ['src/**/*.browser.{test,spec}.{ts,tsx}'],
+    files: ['src/**/*.browser.{spec,test}.{ts,tsx}'],
     extends: [...typescript, ...react, vitest.configs.recommended],
     languageOptions: {
       // A real browser: no Node globals, unlike the emulated DOMs
@@ -112,12 +112,12 @@ export default defineConfig([
   },
   {
     name: 'app/spec/unqualified',
-    files: ['src/**/*.{test,spec}.{ts,tsx}'],
+    files: ['src/**/*.{spec,test}.{ts,tsx}'],
     // Everything some Vitest project includes. A spec outside this list would
     // belong to no project, so it would never run and never be type-checked.
     ignores: [
-      'src/**/*.node.{test,spec}.ts',
-      'src/**/*.{dom,happy-dom,jsdom,browser}.{test,spec}.{ts,tsx}',
+      'src/**/*.node.{spec,test}.ts',
+      'src/**/*.{dom,happy-dom,jsdom,browser}.{spec,test}.{ts,tsx}',
     ],
     languageOptions: { parser: tseslint.parser },
     rules: {

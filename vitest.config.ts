@@ -15,7 +15,7 @@ export default mergeConfig(
           test: {
             name: 'node',
             environment: 'node',
-            include: ['src/**/*.node.{test,spec}.ts'],
+            include: ['src/**/*.node.{spec,test}.ts'],
           },
         },
         {
@@ -28,7 +28,7 @@ export default mergeConfig(
             // the default implementation. Moving `dom` out of this glob, here
             // and in the matching tsconfig and ESLint block, changes the
             // default.
-            include: ['src/**/*.{dom,happy-dom}.{test,spec}.{ts,tsx}'],
+            include: ['src/**/*.{dom,happy-dom}.{spec,test}.{ts,tsx}'],
           },
         },
         {
@@ -37,14 +37,14 @@ export default mergeConfig(
             name: 'jsdom',
             environment: 'jsdom',
             setupFiles: ['src/tests/env.dom.setup.ts'],
-            include: ['src/**/*.jsdom.{test,spec}.{ts,tsx}'],
+            include: ['src/**/*.jsdom.{spec,test}.{ts,tsx}'],
           },
         },
         {
           extends: true,
           test: {
             name: 'browser',
-            include: ['src/**/*.browser.{test,spec}.{ts,tsx}'],
+            include: ['src/**/*.browser.{spec,test}.{ts,tsx}'],
             browser: {
               enabled: true,
               // Vitest opens a visible window by default. Pass
