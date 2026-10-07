@@ -77,12 +77,12 @@ jobs:
         run: npm test
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-      - name: Upload LHCI artifacts
+      - name: Upload lighthouseci-reports artifact
         # Also upload when tests fail, since that is when the reports matter.
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
         with:
-          name: lhci
+          name: lighthouseci-reports
           path: './.lighthouseci-reports'
           retention-days: 7
           include-hidden-files: true
