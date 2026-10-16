@@ -18,15 +18,21 @@ const getConfig = ({ subdir = 'mobile', settings = {} } = {}) => ({
       startServerReadyPattern: 'Local',
       startServerReadyTimeout: 30000,
       url: ['http://localhost:4173/rating-ui-react/'],
-      // Audit with the Chromium that test:install downloads for Vitest's
-      // Browser Mode, so both test suites run against the same browser.
+      // Audit with Playwright's Chromium, the one Vitest's Browser Mode runs,
+      // so both test suites run against the same browser.
       chromePath: chromium.executablePath(),
       settings: {
-        // Ubuntu 23.10+ blocks the unprivileged user namespaces Chromium's
-        // sandbox needs, so it crashes on the CI runner unless disabled, as
-        // Playwright already does. This is safe here because Lighthouse only
-        // loads our own build from localhost.
-        ...(process.env['CI'] && { chromeFlags: '--no-sandbox' }),
+        // LHCI appends its own flags to this string, so it can't be an array.
+        chromeFlags: [
+          // Keep Chrome's shared memory out of /dev/shm, which Docker caps at
+          // 64MB, as Playwright does for the browsers it launches.
+          '--disable-dev-shm-usage',
+          // CI runs in Playwright's Docker image as root, and Chromium refuses
+          // to start its sandbox as root, so it's disabled there, as
+          // Playwright already does. This is safe here because Lighthouse
+          // only loads our own build from localhost.
+          ...(process.env['CI'] ? ['--no-sandbox'] : []),
+        ].join(' '),
         ...settings,
       },
     },
