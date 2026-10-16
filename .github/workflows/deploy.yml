@@ -33,6 +33,15 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    # Playwright's own image already ships the browsers and their system
+    # libraries, so CI runs the same Chromium as a local `npm run test:install`
+    # without installing anything. The tag has to match the `playwright`
+    # version in package.json, or the browser Vitest and Lighthouse ask for
+    # won't be in the image.
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0
+      # Docker caps /dev/shm at 64MB, which is not enough for Chromium.
+      options: --ipc=host
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -48,12 +57,6 @@ jobs:
 
       - name: Build
         run: npm run build
-
-      - name: Install browsers
-        # `--with-deps` also installs the browsers' system libraries. Playwright
-        # does that with apt, so it only works on Debian-based systems such as
-        # this runner, which is why test:install leaves it out.
-        run: npm run test:install -- --with-deps
 
       - name: Run tests
         run: npm test
