@@ -41,11 +41,11 @@ jobs:
     # they run in this same image.
     container:
       image: mcr.microsoft.com/playwright:v1.63.0
-      # Playwright launches Chromium with --disable-dev-shm-usage, but
-      # Lighthouse's launcher doesn't, so its Chrome would be stuck with
-      # Docker's default 64MB /dev/shm and can run out of memory and crash.
-      # Sharing the host's IPC namespace lifts that limit, as Playwright's
-      # Docker guide recommends.
+      # Playwright and lighthouserc.base.cjs both launch Chromium with
+      # --disable-dev-shm-usage, so neither needs Docker's 64MB /dev/shm.
+      # Sharing the host's IPC namespace, as Playwright's Docker guide
+      # recommends, still lifts that limit for anything that launches Chromium
+      # without the flag.
       options: --ipc=host
     steps:
       - name: Checkout
