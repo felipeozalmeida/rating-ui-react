@@ -34,13 +34,16 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     # Playwright's image ships the browsers and their system libraries, so CI
-    # doesn't install them. The tag has to match the `playwright` version in
+    # doesn't install them. The version in the tag has to match `playwright` in
     # package.json, or the Chromium that Vitest and Lighthouse ask for won't be
-    # in the image. This pins CI's environment only: local runs still get the
-    # host's OS, fonts and Chromium build, so they render like CI only when
-    # they run in this same image.
+    # in the image. `-noble` pins the OS to Ubuntu 24.04: a tag without it
+    # follows whichever Ubuntu Playwright makes the default, so a Playwright
+    # bump could also swap the OS, fonts and libraries that pages render with.
+    # Changing the OS should be its own deliberate change. This pins CI's
+    # environment only: local runs still get the host's OS, fonts and Chromium
+    # build, so they render like CI only when they run in this same image.
     container:
-      image: mcr.microsoft.com/playwright:v1.63.0
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
       # Playwright and lighthouserc.base.cjs both launch Chromium with
       # --disable-dev-shm-usage, so neither needs Docker's 64MB /dev/shm.
       # Sharing the host's IPC namespace, as Playwright's Docker guide
