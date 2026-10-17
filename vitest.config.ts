@@ -50,7 +50,7 @@ export default mergeConfig(
               // Vitest opens a visible window by default. Pass
               // `--browser.headless=false` to get it back for debugging.
               headless: true,
-              // New headless: the real Chrome build rather than Playwright's
+              // New headless: the full Chromium build rather than Playwright's
               // separate headless shell, which is the point of this tier.
               // https://vitest.dev/config/browser/playwright
               provider: playwright({ launchOptions: { channel: 'chromium' } }),

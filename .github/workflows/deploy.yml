@@ -15,7 +15,7 @@ permissions:
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
+# Allow one deployment at a time, cancelling the one in progress
 concurrency:
   group: 'pages'
   cancel-in-progress: true
@@ -33,6 +33,23 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    # Playwright's image ships the browsers and their system libraries, so CI
+    # doesn't install them. The version in the tag has to match `playwright` in
+    # package.json, or the Chromium that Vitest and Lighthouse ask for won't be
+    # in the image. `-noble` pins the OS to Ubuntu 24.04: a tag without it
+    # follows whichever Ubuntu Playwright makes the default, so a Playwright
+    # bump could also swap the OS, fonts and libraries that pages render with.
+    # Changing the OS should be its own deliberate change. This pins CI's
+    # environment only: local runs still get the host's OS, fonts and Chromium
+    # build, so they render like CI only when they run in this same image.
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      # Playwright and lighthouserc.base.cjs both launch Chromium with
+      # --disable-dev-shm-usage, so neither needs Docker's 64MB /dev/shm.
+      # Sharing the host's IPC namespace, as Playwright's Docker guide
+      # recommends, still lifts that limit for anything that launches Chromium
+      # without the flag.
+      options: --ipc=host
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -48,12 +65,6 @@ jobs:
 
       - name: Build
         run: npm run build
-
-      - name: Install browsers
-        # `--with-deps` also installs the browsers' system libraries. Playwright
-        # does that with apt, so it only works on Debian-based systems such as
-        # this runner, which is why test:install leaves it out.
-        run: npm run test:install -- --with-deps
 
       - name: Run tests
         run: npm test
