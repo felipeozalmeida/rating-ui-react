@@ -22,7 +22,9 @@
   - `.dom.`: the default DOM implementation, currently happy-dom
   - `.happy-dom.`, `.jsdom.`: that implementation specifically
   - `.browser.`: real Chromium through Playwright
-- Choose the cheapest environment that can exercise what the spec tests: `.node.` for DOM-free logic, `.dom.` for components and hooks (rendering a hook goes through React DOM), a pinned implementation (`.happy-dom.`, `.jsdom.`) only when the spec depends on that implementation, and `.browser.` only for what emulators cannot do, such as layout, real CSS or workers.
+- Choose the cheapest environment that can see what the spec tests: `.node.` for DOM-free logic, `.dom.` for rendering, props, state, events and ARIA attributes in components and hooks (rendering a hook goes through React DOM), a pinned implementation (`.happy-dom.`, `.jsdom.`) only when the spec depends on that implementation, and `.browser.` for what emulators cannot see: layout and sizes, real CSS (including what it hides from view and from assistive technology), focus that depends on rendering, and workers.
+- No environment can see what a screen reader announces; that needs a manual check with VoiceOver or NVDA.
+- Watch every new spec fail before making it pass. When unsure whether an emulator can see a bug, break the component on purpose (e.g. hide an element with CSS) and run the spec in both environments; if only `.browser.` turns red, the spec belongs there.
 - The environments form a fidelity gradient, from cheapest to most faithful: node, happy-dom, jsdom, browser. Keep that order wherever environments are listed (tsconfig `references`, Vitest `projects`, ESLint blocks, globs, docs), and place a new environment where it falls on the gradient rather than at the end.
 - In lists of test files, put `.d.ts` files first, then setup files, then `.dom.` globs, then the pinned implementations in gradient order.
 - Wherever globs or include-like lists (Vitest `include`, tsconfig `include`/`exclude`, ESLint `files`/`ignores`) cover both suffixes, list `spec` before `test`, e.g. `{spec,test}`, or `.spec.ts` and `.spec.tsx` before `.test.ts` and `.test.tsx`.

@@ -56,14 +56,24 @@ the cheapest to the most faithful:
 | `.jsdom.`     | jsdom                                                 |
 | `.browser.`   | real Chromium through Playwright, with layout and CSS |
 
-Pick the cheapest one that can exercise what the spec tests:
+Pick the cheapest one that can see what the spec tests:
 
 - `.node.` for logic that doesn't touch the DOM
-- `.dom.` for components and hooks. Hooks need a DOM too, because rendering
-  them goes through React DOM.
+- `.dom.` for rendering, props, state, events and ARIA attributes, in
+  components and hooks. Hooks need a DOM too, because rendering them goes
+  through React DOM.
 - `.happy-dom.` or `.jsdom.` only when the spec depends on that implementation
-- `.browser.` only for what the emulators can't do, such as layout, real CSS
-  or workers
+- `.browser.` for what the emulators can't see: layout and sizes, real CSS,
+  including what it hides from view and from assistive technology, focus that
+  depends on what's rendered, and workers
+
+Some behaviour no environment here can see, such as what a screen reader
+announces. Check that by hand with one, such as VoiceOver or NVDA.
+
+Watch every new spec fail before you make it pass, so you know it can fail.
+When you're unsure whether an emulator can see a bug, break the component on
+purpose, for example by hiding an element with CSS, and run the spec in both
+environments. If only `.browser.` turns red, the spec belongs there.
 
 A spec without a qualifier fails lint.
 
