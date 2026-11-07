@@ -83,9 +83,10 @@ the OS and even the CPU change how a page renders, so they only run in CI,
 inside the same Playwright image every time, and `npm run test:unit` skips them
 locally. To create or update their reference images, push your branch and run
 the **Update visual regression screenshots** workflow on it from the Actions
-tab. It commits the new references to the branch. The workflow pushes with
-`GITHUB_TOKEN`, which starts no other workflow runs. When a visual spec fails
-in CI, the `vitest-attachments` artifact holds the actual and diff images, plus a
+tab. It commits the new references to the branch. That commit is pushed with
+`GITHUB_TOKEN`, so no `push` workflow runs for it, and deploy checks the new
+references after you merge. When a visual spec fails in CI, the
+`vitest-attachments` artifact holds the actual and diff images, plus a
 screenshot of every failed browser spec.
 
 Vitest, TypeScript and ESLint pick up both `.spec.` and `.test.` files. Wherever
