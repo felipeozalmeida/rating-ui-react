@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Vitest attachments, such as screenshot diffs of failed visual specs
+.vitest-attachments
+
 # Lighthouse CI local report cache
 .lighthouseci
 .lighthouseci-reports

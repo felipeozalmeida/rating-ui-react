@@ -1,7 +1,40 @@
 import { fileURLToPath } from 'node:url'
 import { mergeConfig, defineConfig, configDefaults } from 'vitest/config'
+import type { TestProjectInlineConfiguration } from 'vitest/config'
 import { playwright } from '@vitest/browser-playwright'
 import viteConfig from './vite.config.ts'
+
+// A function, since Vitest writes the resolved instance names into the object
+const browser = () => ({
+  enabled: true,
+  // Vitest opens a visible window by default. Pass
+  // `--browser.headless=false` to get it back for debugging.
+  headless: true,
+  // New headless: the full Chromium build rather than Playwright's
+  // separate headless shell, which is the point of this tier.
+  // https://vitest.dev/config/browser/playwright
+  provider: playwright({ launchOptions: { channel: 'chromium' } }),
+  instances: [{ browser: 'chromium' as const }],
+})
+
+// Screenshots only match the environment that took them, so visual specs run
+// in CI alone, inside the Playwright image that deploy.yml pins. Locally the
+// project doesn't exist: `vitest run` skips it and `--project visual` fails
+// with "No projects matched". New references come from the "Update visual
+// regression screenshots" workflow, never from a local run.
+// https://vitest.dev/guide/browser/visual-regression-testing
+const visualProjects: TestProjectInlineConfiguration[] = process.env['CI']
+  ? [
+      {
+        extends: true,
+        test: {
+          name: 'visual',
+          include: ['src/**/*.visual.browser.{spec,test}.{ts,tsx}'],
+          browser: browser(),
+        },
+      },
+    ]
+  : []
 
 export default mergeConfig(
   viteConfig,
@@ -45,19 +78,12 @@ export default mergeConfig(
           test: {
             name: 'browser',
             include: ['src/**/*.browser.{spec,test}.{ts,tsx}'],
-            browser: {
-              enabled: true,
-              // Vitest opens a visible window by default. Pass
-              // `--browser.headless=false` to get it back for debugging.
-              headless: true,
-              // New headless: the full Chromium build rather than Playwright's
-              // separate headless shell, which is the point of this tier.
-              // https://vitest.dev/config/browser/playwright
-              provider: playwright({ launchOptions: { channel: 'chromium' } }),
-              instances: [{ browser: 'chromium' }],
-            },
+            // Visual specs are browser specs too, but they belong to `visual`
+            exclude: ['src/**/*.visual.browser.{spec,test}.{ts,tsx}'],
+            browser: browser(),
           },
         },
+        ...visualProjects,
       ],
     },
   }),

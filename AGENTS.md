@@ -22,7 +22,9 @@
   - `.dom.`: the default DOM implementation, currently happy-dom
   - `.happy-dom.`, `.jsdom.`: that implementation specifically
   - `.browser.`: real Chromium through Playwright
+  - `.visual.browser.`: screenshot comparisons in that same Chromium, in CI only
 - Choose the cheapest environment that can see what the spec tests: `.node.` for DOM-free logic, `.dom.` for rendering, props, state, events and ARIA attributes in components and hooks (rendering a hook goes through React DOM), a pinned implementation (`.happy-dom.`, `.jsdom.`) only when the spec depends on that implementation, and `.browser.` for what emulators cannot see: layout and sizes, real CSS (including what it hides from view and from assistive technology), focus that depends on rendering, and workers.
+- Use `.visual.browser.` only for what must be compared as pixels. Those specs run in CI alone, inside the Playwright image that `deploy.yml` pins, because screenshots only match the environment that took them. Locally `vitest run` skips them. Never write references locally: create or update them with the "Update visual regression screenshots" workflow on a feature branch.
 - No environment can see what a screen reader announces; that needs a manual check with VoiceOver or NVDA.
 - Watch every new spec fail before making it pass. When unsure whether an emulator can see a bug, break the component on purpose (e.g. hide an element with CSS) and run the spec in both environments; if only `.browser.` turns red, the spec belongs there.
 - The environments form a fidelity gradient, from cheapest to most faithful: node, happy-dom, jsdom, browser. Keep that order wherever environments are listed (tsconfig `references`, Vitest `projects`, ESLint blocks, globs, docs), and place a new environment where it falls on the gradient rather than at the end.

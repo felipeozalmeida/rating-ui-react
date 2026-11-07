@@ -26,6 +26,7 @@
     "test:install": "playwright install --no-shell chromium",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest watch",
+    "test:visual": "vitest run --project visual",
     "test:lhci": "run-s test:lhci:mobile test:lhci:desktop",
     "test:lhci:mobile": "lhci autorun --config lighthouserc.mobile.cjs",
     "test:lhci:desktop": "lhci autorun --config lighthouserc.desktop.cjs",

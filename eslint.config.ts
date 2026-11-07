@@ -126,7 +126,7 @@ export default defineConfig([
         {
           selector: 'Program',
           message:
-            'Qualify the spec filename with its environment: .node. (.ts only), .dom., .happy-dom., .jsdom. or .browser.',
+            'Qualify the spec filename with its environment: .node. (.ts only), .dom., .happy-dom., .jsdom., .browser. or .visual.browser.',
         },
       ],
     },

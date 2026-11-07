@@ -71,6 +71,17 @@ jobs:
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
+      - name: Upload screenshot diffs artifact
+        # Failed visual specs leave their actual and diff images here.
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: vitest-attachments
+          path: './.vitest-attachments'
+          retention-days: 7
+          include-hidden-files: true
+          if-no-files-found: ignore
+
       - name: Upload lighthouseci-reports artifact
         # Also upload when tests fail, since that is when the reports matter.
         if: ${{ !cancelled() }}
