@@ -26,7 +26,6 @@ const browser = () => ({
 const visualProjects: TestProjectInlineConfiguration[] = process.env['CI']
   ? [
       {
-        extends: true,
         test: {
           name: 'visual',
           include: ['src/**/*.visual.browser.{spec,test}.{ts,tsx}'],
@@ -44,7 +43,6 @@ export default mergeConfig(
       root: fileURLToPath(new URL('./', import.meta.url)),
       projects: [
         {
-          extends: true,
           test: {
             name: 'node',
             environment: 'node',
@@ -52,7 +50,6 @@ export default mergeConfig(
           },
         },
         {
-          extends: true,
           test: {
             name: 'happy-dom',
             environment: 'happy-dom',
@@ -65,7 +62,6 @@ export default mergeConfig(
           },
         },
         {
-          extends: true,
           test: {
             name: 'jsdom',
             environment: 'jsdom',
@@ -74,7 +70,6 @@ export default mergeConfig(
           },
         },
         {
-          extends: true,
           test: {
             name: 'browser',
             include: ['src/**/*.browser.{spec,test}.{ts,tsx}'],
