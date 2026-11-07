@@ -85,7 +85,8 @@ locally. To create or update their reference images, push your branch and run
 the **Update visual regression screenshots** workflow on it from the Actions
 tab. It commits the new references to the branch. The workflow pushes with
 `GITHUB_TOKEN`, which starts no other workflow runs. When a visual spec fails
-in CI, the `vitest-attachments` artifact holds the actual and diff images.
+in CI, the `vitest-attachments` artifact holds the actual and diff images, plus a
+screenshot of every failed browser spec.
 
 Vitest, TypeScript and ESLint pick up both `.spec.` and `.test.` files. Wherever
 a config lists both, `spec` comes first, as in `*.{spec,test}.{ts,tsx}`.
