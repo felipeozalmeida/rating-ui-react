@@ -48,14 +48,14 @@ Every spec names the environment it runs in with a qualifier in its filename,
 such as `Rating.dom.spec.tsx`. The environments are ordered by fidelity, from
 the cheapest to the most faithful:
 
-| qualifier          | runs in                                               |
-| ------------------ | ----------------------------------------------------- |
-| `.node.`           | Node, with no DOM (`.ts` only)                        |
-| `.dom.`            | the default DOM implementation, currently happy-dom   |
-| `.happy-dom.`      | happy-dom                                             |
-| `.jsdom.`          | jsdom                                                 |
-| `.browser.`        | real Chromium through Playwright, with layout and CSS |
-| `.visual.browser.` | the same Chromium, comparing screenshots, in CI only  |
+| qualifier     | runs in                                               |
+| ------------- | ----------------------------------------------------- |
+| `.node.`      | Node, with no DOM (`.ts` only)                        |
+| `.dom.`       | the default DOM implementation, currently happy-dom   |
+| `.happy-dom.` | happy-dom                                             |
+| `.jsdom.`     | jsdom                                                 |
+| `.browser.`   | real Chromium through Playwright, with layout and CSS |
+| `.visual.`    | the same Chromium, comparing screenshots, in CI only  |
 
 Pick the cheapest one that can see what the spec tests:
 
@@ -78,10 +78,9 @@ environments. If only `.browser.` turns red, the spec belongs there.
 
 A spec without a qualifier fails lint.
 
-`.visual.browser.` specs compare screenshots with `toMatchScreenshot`. Fonts,
-the OS and even the CPU change how a page renders, so they only run in CI,
-inside the same Playwright image every time, and `npm run test:unit` skips them
-locally. To create or update their reference images, push your branch and run
+`.visual.` specs compare screenshots with `toMatchScreenshot`. Fonts, the OS
+and even the CPU change how a page renders, so they only run in CI, inside the
+same Playwright image every time, and `npm run test:unit` skips them locally. To create or update their reference images, push your branch and run
 the **Update visual regression screenshots** workflow on it from the Actions
 tab. It commits the new references to the branch. That commit is pushed with
 `GITHUB_TOKEN`, so no `push` workflow runs for it, and deploy checks the new

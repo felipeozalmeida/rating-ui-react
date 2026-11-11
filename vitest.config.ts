@@ -28,7 +28,7 @@ const visualProjects: TestProjectInlineConfiguration[] = process.env['CI']
       {
         test: {
           name: 'visual',
-          include: ['src/**/*.visual.browser.{spec,test}.{ts,tsx}'],
+          include: ['src/**/*.visual.{spec,test}.{ts,tsx}'],
           browser: browser(),
         },
       },
@@ -73,8 +73,6 @@ export default mergeConfig(
           test: {
             name: 'browser',
             include: ['src/**/*.browser.{spec,test}.{ts,tsx}'],
-            // Visual specs are browser specs too, but they belong to `visual`
-            exclude: ['src/**/*.visual.browser.{spec,test}.{ts,tsx}'],
             browser: browser(),
           },
         },
