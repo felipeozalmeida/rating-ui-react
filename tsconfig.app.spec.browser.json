@@ -9,6 +9,11 @@
     "src/**/*.browser.spec.ts",
     "src/**/*.browser.spec.tsx",
     "src/**/*.browser.test.ts",
-    "src/**/*.browser.test.tsx"
+    "src/**/*.browser.test.tsx",
+    // `.visual.` specs run in this same Chromium, in CI only
+    "src/**/*.visual.spec.ts",
+    "src/**/*.visual.spec.tsx",
+    "src/**/*.visual.test.ts",
+    "src/**/*.visual.test.tsx"
   ]
 }

@@ -55,6 +55,7 @@ the cheapest to the most faithful:
 | `.happy-dom.` | happy-dom                                             |
 | `.jsdom.`     | jsdom                                                 |
 | `.browser.`   | real Chromium through Playwright, with layout and CSS |
+| `.visual.`    | the same Chromium, comparing screenshots, in CI only  |
 
 Pick the cheapest one that can see what the spec tests:
 
@@ -76,6 +77,16 @@ purpose, for example by hiding an element with CSS, and run the spec in both
 environments. If only `.browser.` turns red, the spec belongs there.
 
 A spec without a qualifier fails lint.
+
+`.visual.` specs compare screenshots with `toMatchScreenshot`. Fonts, the OS
+and even the CPU change how a page renders, so they only run in CI, inside the
+same Playwright image every time, and `npm run test:unit` skips them locally. To create or update their reference images, push your branch and run
+the **Update visual regression screenshots** workflow on it from the Actions
+tab. It commits the new references to the branch. That commit is pushed with
+`GITHUB_TOKEN`, so no `push` workflow runs for it, and deploy checks the new
+references after you merge. When a visual spec fails in CI, the
+`vitest-attachments` artifact holds the actual and diff images, plus a
+screenshot of every failed browser spec.
 
 Vitest, TypeScript and ESLint pick up both `.spec.` and `.test.` files. Wherever
 a config lists both, `spec` comes first, as in `*.{spec,test}.{ts,tsx}`.

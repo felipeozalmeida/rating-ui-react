@@ -98,7 +98,10 @@ export default defineConfig([
   },
   {
     name: 'app/spec/browser',
-    files: ['src/**/*.browser.{spec,test}.{ts,tsx}'],
+    files: [
+      // `.visual.` specs run in this same Chromium, in CI only
+      'src/**/*.{browser,visual}.{spec,test}.{ts,tsx}',
+    ],
     extends: [...typescript, ...react, vitest.configs.recommended],
     languageOptions: {
       // A real browser: no Node globals, unlike the emulated DOMs
@@ -117,7 +120,7 @@ export default defineConfig([
     // belong to no project, so it would never run and never be type-checked.
     ignores: [
       'src/**/*.node.{spec,test}.ts',
-      'src/**/*.{dom,happy-dom,jsdom,browser}.{spec,test}.{ts,tsx}',
+      'src/**/*.{dom,happy-dom,jsdom,browser,visual}.{spec,test}.{ts,tsx}',
     ],
     languageOptions: { parser: tseslint.parser },
     rules: {
@@ -126,7 +129,7 @@ export default defineConfig([
         {
           selector: 'Program',
           message:
-            'Qualify the spec filename with its environment: .node. (.ts only), .dom., .happy-dom., .jsdom. or .browser.',
+            'Qualify the spec filename with its environment: .node. (.ts only), .dom., .happy-dom., .jsdom., .browser. or .visual.',
         },
       ],
     },
